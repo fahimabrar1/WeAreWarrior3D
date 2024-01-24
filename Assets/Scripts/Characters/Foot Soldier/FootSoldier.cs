@@ -32,7 +32,8 @@ public class FootSoldier : Soldier
 
     public override void MoveToDestination(Vector3 position)
     {
-        navMeshAgent.SetDestination(position);
+        navMeshAgent.destination = position;
+
     }
 
 
