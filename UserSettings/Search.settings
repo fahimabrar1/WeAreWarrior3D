@@ -8,9 +8,12 @@ onBoardingDoNotAskAgain = true
 showPackageIndexes = false
 showStatusBar = false
 scopes = {
-	"last_search.110DEAF1" = ""
+	"last_search.110DEAF1" = "t:Texture"
 	"OpenInspectorPreview.110DEAF1" = "0"
 	"currentGroup.110DEAF1" = "asset"
+	"last_search.E8DA15E5" = "t:mat"
+	"OpenInspectorPreview.E8DA15E5" = "0"
+	"currentGroup.E8DA15E5" = "all"
 }
 providers = {
 	log = {
@@ -62,8 +65,14 @@ providers = {
 objectSelectors = {
 }
 recentSearches = [
-	""
+	"t:ma"
+	"t:M"
+	"t:Texture"
 	"p: t:texture"
+	""
+	"h: t=Material"
+	"h: t=M vertices>=1024"
+	"h: t=MeshFilter vertices>=1024"
 	"p: t:ma"
 ]
 searchItemFavorites = [
@@ -73,7 +82,7 @@ showSavedSearchPanel = false
 hideTabs = false
 expandedQueries = [
 ]
-queryBuilder = false
+queryBuilder = true
 ignoredProperties = "id;name;classname;imagecontentshash"
 helperWidgetCurrentArea = "all"
 disabledIndexers = ""
