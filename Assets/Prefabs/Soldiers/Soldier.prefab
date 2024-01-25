@@ -197,9 +197,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   navMeshAgent: {fileID: 0}
   animator: {fileID: 0}
+  soldierBase: {fileID: 0}
+  destination: {fileID: 0}
   animationData:
     speed: speed
-  destinaiton: {fileID: 0}
 --- !u!1 &1549057173042980352
 GameObject:
   m_ObjectHideFlags: 0
