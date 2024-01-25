@@ -1,10 +1,16 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class FootSoldier : Soldier
 {
 
+
+    [BoxGroup("Data")]
+    [Tooltip("Animator parameter name")]
+    public AnimationData animationData;
 
 
     /// <summary>
@@ -13,7 +19,7 @@ public class FootSoldier : Soldier
     /// </summary>
     void Start()
     {
-        MoveToDestination(destinaiton.position);
+        FindClosestTarget();
     }
 
 
@@ -33,6 +39,13 @@ public class FootSoldier : Soldier
     public override void MoveToDestination(Vector3 position)
     {
         navMeshAgent.destination = position;
+
+    }
+
+    public override void FindClosestTarget()
+    {
+        base.FindClosestTarget();
+        MoveToDestination(destination.position);
 
     }
 

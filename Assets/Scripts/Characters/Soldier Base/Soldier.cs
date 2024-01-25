@@ -1,6 +1,7 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.AI;
+using System.Linq;
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class Soldier : MonoBehaviour, IDamagable, IAttackable
@@ -21,13 +22,15 @@ public class Soldier : MonoBehaviour, IDamagable, IAttackable
 
     [BoxGroup("Data")]
 
-    [Tooltip("Animator parameter name")]
-    public AnimationData animationData;
+    [Tooltip("The Base of this soldier")]
+    public SoldierBase soldierBase;
+
 
     [BoxGroup("Data")]
-    public Transform destinaiton;
+    public Transform destination;
 
 
+    #region Mono Methods
     /// <summary>
     /// Awake is called when the script instance is being loaded.
     /// </summary>
@@ -36,7 +39,9 @@ public class Soldier : MonoBehaviour, IDamagable, IAttackable
         navMeshAgent = GetComponent<NavMeshAgent>();
         animator = GetComponentInChildren<Animator>();
     }
+    #endregion
 
+    #region Methods
 
     /// <summary>
     /// Damage the object it is attached to
@@ -61,4 +66,34 @@ public class Soldier : MonoBehaviour, IDamagable, IAttackable
     {
         navMeshAgent.SetDestination(position);
     }
+
+
+
+    /// <summary>
+    /// Finds the closest target, if there are no soldiers then the target is their base 
+    /// </summary>
+    public virtual void FindClosestTarget()
+    {
+        if (!soldierBase.enemies.Any())
+        {
+            if (soldierBase.opponentBase != null)
+            {
+                destination = soldierBase.opponentBase.transform;
+            }
+        }
+        else
+        {
+            Soldier closestEnemy = soldierBase.enemies
+                .OrderBy(enemy => Vector3.Distance(enemy.transform.position, transform.position))
+                .FirstOrDefault();
+
+            if (closestEnemy != null && closestEnemy.transform != null)
+            {
+                destination = closestEnemy.transform;
+            }
+            // Handle the case when there are no enemies, or do something else.
+        }
+    }
+
+    #endregion
 }
