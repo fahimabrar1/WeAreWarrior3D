@@ -14,6 +14,7 @@ public class BattleManager : MonoBehaviour
 
 
     public static Action<GameTeam, Soldier> OnNotifyBaseAction;
+    public static Action OnNotifySoldierAction;
 
 
 

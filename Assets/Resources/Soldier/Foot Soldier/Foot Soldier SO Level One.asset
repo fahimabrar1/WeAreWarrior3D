@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: beba41344debf2f41a88e0b047aec919, type: 3}
+  m_Name: Foot Soldier SO Level One
+  m_EditorClassIdentifier: 
+  Srefab: {fileID: 0}
+  SoldierName: 
+  AnimationData:
+    speed: speed
+  CombatData:
+    <CombatRadius>k__BackingField: 2

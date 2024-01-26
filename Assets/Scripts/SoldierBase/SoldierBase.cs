@@ -38,8 +38,6 @@ public class SoldierBase : MonoBehaviour, IDamagable
     public List<Soldier> enemies = new();
 
 
-
-
     #region Mono Methods
     /// <summary>
     /// This function is called when the object becomes enabled and active.
@@ -47,6 +45,14 @@ public class SoldierBase : MonoBehaviour, IDamagable
     void OnEnable()
     {
         BattleManager.OnNotifyBaseAction += OnNotifyBase;
+    }
+
+    /// <summary>
+    /// This function is called when the behaviour becomes disabled or inactive.
+    /// </summary>
+    void OnDisable()
+    {
+        BattleManager.OnNotifyBaseAction -= OnNotifyBase;
     }
 
 
@@ -84,10 +90,11 @@ public class SoldierBase : MonoBehaviour, IDamagable
     /// <param name="soldier">Can be any type of soldier</param>
     private void OnNotifyBase(GameTeam team, Soldier soldier)
     {
-        if (team != gameTeam)
-        {
+        if (team == gameTeam)
+            soldiers.Add(soldier);
+        else
             enemies.Add(soldier);
-        }
+
     }
 
 
@@ -118,15 +125,17 @@ public class SoldierBase : MonoBehaviour, IDamagable
     /// And also notifing the opposite base about this soldier so they can notify their soldiers.
     /// *AND THEY CAN FIGHT TO DEATH
     /// </summary>
+    [ShowIf("@gameTeam == GameTeam.Player")]
+    [Button("Spawn Wave/Enemy")]
     public void SpawnWave()
     {
-        Vector3 point = RandomPointGenerator.RandomPointInBounds(spawnArea.bounds);
 
+        Vector3 point = RandomPointGenerator.RandomPointInBounds(spawnArea.bounds);
         //Todo: Move data to scriptable object
         var soldier = Instantiate(soldierPrefab, point, Quaternion.identity).GetComponent<Soldier>();
         soldier.soldierBase = this;
-        soldiers.Add(soldier);
         BattleManager.OnNotifyBaseAction(gameTeam, soldier);
+        BattleManager.OnNotifySoldierAction();
     }
     #endregion
 }

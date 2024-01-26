@@ -2,8 +2,9 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.AI;
 using System.Linq;
+using System;
 
-[RequireComponent(typeof(NavMeshAgent))]
+[RequireComponent(typeof(NavMeshAgent)), RequireComponent(typeof(SphereCollider))]
 public class Soldier : MonoBehaviour, IDamagable, IAttackable
 {
 
@@ -19,9 +20,12 @@ public class Soldier : MonoBehaviour, IDamagable, IAttackable
     [Tooltip("Animator of the solder")]
     public Animator animator;
 
+    [BoxGroup("Components")]
+    [Tooltip("The Collider For detecting objects withi it's range")]
+    public SphereCollider sphereCollider;
+
 
     [BoxGroup("Data")]
-
     [Tooltip("The Base of this soldier")]
     public SoldierBase soldierBase;
 
@@ -38,7 +42,30 @@ public class Soldier : MonoBehaviour, IDamagable, IAttackable
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
         animator = GetComponentInChildren<Animator>();
+        sphereCollider = GetComponentInChildren<SphereCollider>();
     }
+
+
+
+    /// <summary>
+    /// This function is called when the object becomes enabled and active.
+    /// </summary>
+    void OnEnable()
+    {
+        BattleManager.OnNotifySoldierAction += FindClosestTarget;
+    }
+
+
+
+    /// <summary>
+    /// This function is called when the behaviour becomes disabled or inactive.
+    /// </summary>
+    void OnDisable()
+    {
+        BattleManager.OnNotifySoldierAction -= FindClosestTarget;
+    }
+
+
     #endregion
 
     #region Methods
@@ -67,8 +94,6 @@ public class Soldier : MonoBehaviour, IDamagable, IAttackable
         navMeshAgent.SetDestination(position);
     }
 
-
-
     /// <summary>
     /// Finds the closest target, if there are no soldiers then the target is their base 
     /// </summary>
@@ -94,6 +119,7 @@ public class Soldier : MonoBehaviour, IDamagable, IAttackable
             // Handle the case when there are no enemies, or do something else.
         }
     }
+
 
     #endregion
 }

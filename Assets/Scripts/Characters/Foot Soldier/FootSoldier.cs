@@ -9,8 +9,7 @@ public class FootSoldier : Soldier
 
 
     [BoxGroup("Data")]
-    [Tooltip("Animator parameter name")]
-    public FootSoldierAnimationData animationData = new();
+    public FootSoldierSO data;
 
 
 
@@ -21,7 +20,9 @@ public class FootSoldier : Soldier
     /// </summary>
     void Start()
     {
-        animationData.Initialize();
+        data.AnimationData.Initialize();
+        sphereCollider.isTrigger = true;
+        sphereCollider.radius = data.CombatData.CombatRadius;
         FindClosestTarget();
     }
 
@@ -31,7 +32,7 @@ public class FootSoldier : Soldier
     /// </summary>
     void Update()
     {
-        animator.SetFloat(animationData.SpeedHash, navMeshAgent.speed);
+        animator.SetFloat(data.AnimationData.SpeedHash, navMeshAgent.speed);
     }
 
 

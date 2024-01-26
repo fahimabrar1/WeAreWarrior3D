@@ -137,9 +137,10 @@ GameObject:
   m_Component:
   - component: {fileID: 622471904266893219}
   - component: {fileID: 1716104623521549846}
+  - component: {fileID: 4211550467328392381}
   - component: {fileID: 103335383200624986}
   m_Layer: 0
-  m_Name: Soldier
+  m_Name: Foot Soldier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -183,6 +184,27 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!135 &4211550467328392381
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1455918053934231001}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &103335383200624986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,10 +219,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   navMeshAgent: {fileID: 0}
   animator: {fileID: 0}
+  sphereCollider: {fileID: 0}
   soldierBase: {fileID: 0}
   destination: {fileID: 0}
-  animationData:
-    speed: speed
+  data: {fileID: 0}
 --- !u!1 &1549057173042980352
 GameObject:
   m_ObjectHideFlags: 0
@@ -1031,37 +1053,37 @@ PrefabInstance:
     - target: {fileID: 987029943277218771, guid: 41f9568602b50c54494c44af8ea55b29,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.0002
       objectReference: {fileID: 0}
     - target: {fileID: 987029943277218771, guid: 41f9568602b50c54494c44af8ea55b29,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.0035
+      value: 0.002
       objectReference: {fileID: 0}
     - target: {fileID: 987029943277218771, guid: 41f9568602b50c54494c44af8ea55b29,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0
+      value: -0.0008
       objectReference: {fileID: 0}
     - target: {fileID: 987029943277218771, guid: 41f9568602b50c54494c44af8ea55b29,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.32650563
       objectReference: {fileID: 0}
     - target: {fileID: 987029943277218771, guid: 41f9568602b50c54494c44af8ea55b29,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: 0.32650563
       objectReference: {fileID: 0}
     - target: {fileID: 987029943277218771, guid: 41f9568602b50c54494c44af8ea55b29,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.6272114
       objectReference: {fileID: 0}
     - target: {fileID: 987029943277218771, guid: 41f9568602b50c54494c44af8ea55b29,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: 0.6272114
       objectReference: {fileID: 0}
     - target: {fileID: 987029943277218771, guid: 41f9568602b50c54494c44af8ea55b29,
         type: 3}
