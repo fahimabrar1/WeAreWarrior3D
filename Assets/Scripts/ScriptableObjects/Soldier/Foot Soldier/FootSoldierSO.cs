@@ -9,11 +9,11 @@ public class FootSoldierSO : SoldierSO
 
     [Title("Soldier Data")]
     [Tooltip("The animatioin data of the foot soldier")]
-    [SerializeField]
+    public SoldierNavigationData NavigationData;
+
+    [Tooltip("The animatioin data of the foot soldier")]
     public FootSoldierAnimationData AnimationData;
 
-
     [Tooltip("The combat data of the foot soldier")]
-    [SerializeField]
-    public FootSoldierCombatData CombatData;
+    public CombatData CombatData;
 }

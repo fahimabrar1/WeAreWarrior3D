@@ -1,4 +1,9 @@
-public enum GameTeam
+public enum SoldierEnum
+{
+    Soldier,
+}
+
+public enum GameTeamEnum
 {
     Player,
     Enemy

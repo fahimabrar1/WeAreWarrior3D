@@ -13,7 +13,7 @@ public class BattleManager : MonoBehaviour
     public SoldierBase enemyBase;
 
 
-    public static Action<GameTeam, Soldier> OnNotifyBaseAction;
+    public static Action<GameTeamEnum, Soldier> OnNotifyBaseAction;
     public static Action OnNotifySoldierAction;
 
 
@@ -24,10 +24,10 @@ public class BattleManager : MonoBehaviour
     /// </summary>
     void Start()
     {
-        playerbase.gameTeam = GameTeam.Player;
+        playerbase.gameTeam = GameTeamEnum.Player;
         playerbase.opponentBase = enemyBase;
 
-        enemyBase.gameTeam = GameTeam.Enemy;
+        enemyBase.gameTeam = GameTeamEnum.Enemy;
         enemyBase.opponentBase = playerbase;
     }
 

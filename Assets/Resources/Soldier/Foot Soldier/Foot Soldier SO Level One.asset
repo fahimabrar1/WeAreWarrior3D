@@ -12,9 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beba41344debf2f41a88e0b047aec919, type: 3}
   m_Name: Foot Soldier SO Level One
   m_EditorClassIdentifier: 
-  Srefab: {fileID: 0}
-  SoldierName: 
+  Prefab: {fileID: 0}
+  SoldierName: Erik
+  NavigationData:
+    <Speed>k__BackingField: 2
+    <Acceleration>k__BackingField: 15
+    <Radius>k__BackingField: 0.2
+    <StoppingDistance>k__BackingField: 3.5
   AnimationData:
     speed: speed
+    meele: MeeleDownwards
   CombatData:
-    <CombatRadius>k__BackingField: 2
+    <CombatRadius>k__BackingField: 3.5
+    <AttackDelay>k__BackingField: 2

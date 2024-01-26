@@ -10,7 +10,7 @@ public class SoldierBase : MonoBehaviour, IDamagable
 
 
     [BoxGroup("Variables")]
-    public GameTeam gameTeam;
+    public GameTeamEnum gameTeam;
 
     [BoxGroup("Variables")]
     public int health;
@@ -71,10 +71,10 @@ public class SoldierBase : MonoBehaviour, IDamagable
     /// </summary>
     void Start()
     {
-        if (gameTeam == GameTeam.Enemy)
+        if (gameTeam == GameTeamEnum.Enemy)
         {
             //Todo:Initate waves
-            StartCoroutine(MakeWaves());
+            //StartCoroutine(MakeWaves());
         }
     }
 
@@ -88,7 +88,7 @@ public class SoldierBase : MonoBehaviour, IDamagable
     /// </summary>
     /// <param name="team">Opposite team tag</param>
     /// <param name="soldier">Can be any type of soldier</param>
-    private void OnNotifyBase(GameTeam team, Soldier soldier)
+    private void OnNotifyBase(GameTeamEnum team, Soldier soldier)
     {
         if (team == gameTeam)
             soldiers.Add(soldier);

@@ -4,13 +4,10 @@ using UnityEngine.AI;
 using System.Linq;
 using System;
 
-[RequireComponent(typeof(NavMeshAgent)), RequireComponent(typeof(SphereCollider))]
+[RequireComponent(typeof(NavMeshAgent)), RequireComponent(typeof(Rigidbody))]
 public class Soldier : MonoBehaviour, IDamagable, IAttackable
 {
-
-
-
-    protected GameTeam gameTeam { get; set; }
+    protected GameTeamEnum gameTeam { get; set; }
 
     [BoxGroup("Components")]
     [Tooltip("Navigation For the solder")]
@@ -22,6 +19,7 @@ public class Soldier : MonoBehaviour, IDamagable, IAttackable
 
     [BoxGroup("Components")]
     [Tooltip("The Collider For detecting objects withi it's range")]
+    [Required("Must Attach collider from 'Attack' gameobject ")]
     public SphereCollider sphereCollider;
 
 
@@ -33,6 +31,8 @@ public class Soldier : MonoBehaviour, IDamagable, IAttackable
     [BoxGroup("Data")]
     public Transform destination;
 
+    [BoxGroup("Data")]
+    public Soldier closestEnemy;
 
     #region Mono Methods
     /// <summary>
@@ -42,7 +42,6 @@ public class Soldier : MonoBehaviour, IDamagable, IAttackable
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
         animator = GetComponentInChildren<Animator>();
-        sphereCollider = GetComponentInChildren<SphereCollider>();
     }
 
 
@@ -84,6 +83,7 @@ public class Soldier : MonoBehaviour, IDamagable, IAttackable
     /// </summary>
     public virtual void OnAttack()
     {
+        navMeshAgent.isStopped = true;
     }
 
     /// <summary>
@@ -101,6 +101,7 @@ public class Soldier : MonoBehaviour, IDamagable, IAttackable
     {
         if (!soldierBase.enemies.Any())
         {
+            closestEnemy = null;
             if (soldierBase.opponentBase != null)
             {
                 destination = soldierBase.opponentBase.transform;
@@ -108,12 +109,16 @@ public class Soldier : MonoBehaviour, IDamagable, IAttackable
         }
         else
         {
-            Soldier closestEnemy = soldierBase.enemies
-                .OrderBy(enemy => Vector3.Distance(enemy.transform.position, transform.position))
-                .FirstOrDefault();
+            // Return if already engaged with an enemy
+            if (closestEnemy != null) return;
+
+            closestEnemy = soldierBase.enemies
+               .OrderBy(enemy => Vector3.Distance(enemy.transform.position, transform.position))
+               .FirstOrDefault();
 
             if (closestEnemy != null && closestEnemy.transform != null)
             {
+                navMeshAgent.isStopped = false;
                 destination = closestEnemy.transform;
             }
             // Handle the case when there are no enemies, or do something else.
@@ -121,5 +126,22 @@ public class Soldier : MonoBehaviour, IDamagable, IAttackable
     }
 
 
+    #endregion
+
+
+    #region Events Methods
+
+    protected virtual void OnAnimationStarted()
+    {
+    }
+
+    protected void OnAnimationTransition()
+    {
+    }
+
+
+    public virtual void OnAnimationEnded()
+    {
+    }
     #endregion
 }
