@@ -131,7 +131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameTeam: 0
-  health: 100
+  health: 50
   spawnArea: {fileID: 3497427511024978974}
   opponentBase: {fileID: 0}
   soldierPrefab: {fileID: 1455918053934231001, guid: 0e916c4eb05020945a1970cc2e595d83,
