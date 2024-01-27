@@ -15,6 +15,7 @@ public class FootSoldier : Soldier
 
 
 
+
     #region Mono Methods
     /// <summary>
     /// Start is called on the frame when a script is enabled just before
@@ -23,10 +24,8 @@ public class FootSoldier : Soldier
     void Start()
     {
         SetupSoldierData();
-
         FindClosestTarget();
     }
-
 
     /// <summary>
     /// Sets up all the attributes of the soldier
@@ -36,17 +35,26 @@ public class FootSoldier : Soldier
         // Initialize The animaiton strings to hash
         data.AnimationData.Initialize();
 
+        // Assigning data to reusable obj, so the value on the scriptable object won't change
+        soldierReusableData = new()
+        {
+            Health = data.Health,
+            Speed = data.NavigationData.Speed,
+        };
+
         // setup the attack sphere collider data
         sphereCollider.isTrigger = true;
         sphereCollider.radius = data.CombatData.CombatRadius;
 
         // setup navmesh data for soldier
-        navMeshAgent.speed = data.NavigationData.Speed;
+        Debug.Log($"Setting speed: {soldierReusableData.Speed}");
+        navMeshAgent.speed = soldierReusableData.Speed;
         navMeshAgent.acceleration = data.NavigationData.Acceleration;
         navMeshAgent.radius = data.NavigationData.Radius;
         navMeshAgent.stoppingDistance = data.NavigationData.StoppingDistance;
+        navMeshAgent.isStopped = true;
+        Debug.Log($"All Set: {navMeshAgent.speed}");
 
-        // stoppingDistance
     }
 
 
@@ -55,26 +63,32 @@ public class FootSoldier : Soldier
     /// </summary>
     void Update()
     {
-
-        Debug.Log($"Remaining Distance: {navMeshAgent.remainingDistance}");
-        if (navMeshAgent.remainingDistance <= data.NavigationData.StoppingDistance + data.NavigationData.Radius * 2)
+        if (navMeshAgent.enabled! && navMeshAgent.remainingDistance > 0 && soldierReusableData.destination != null)
         {
-            // Slow down the agent when it's close to the destination
-            float desiredSpeed = Mathf.Lerp(0, navMeshAgent.speed, navMeshAgent.remainingDistance / (data.NavigationData.StoppingDistance + data.NavigationData.Radius * 2));
-            navMeshAgent.speed = desiredSpeed;
+            float stoppingDistance = data.NavigationData.StoppingDistance + data.NavigationData.Radius * 2;
+
+            if (navMeshAgent.remainingDistance <= stoppingDistance)
+            {
+                // Slow down the agent when it's close to the destination
+                float desiredSpeed = Mathf.Lerp(0, soldierReusableData.Speed, navMeshAgent.remainingDistance / stoppingDistance);
+                navMeshAgent.speed = desiredSpeed;
+            }
+
+            // Set the animation speed based on the agent's speed
+            animator.SetFloat(data.AnimationData.SpeedHash, navMeshAgent.speed);
         }
-
-        animator.SetFloat(data.AnimationData.SpeedHash, navMeshAgent.speed);
-
     }
+
 
     /// <summary>
     /// This function is called every fixed framerate frame, if the MonoBehaviour is enabled.
     /// </summary>
     void FixedUpdate()
     {
-        if (!navMeshAgent.isStopped)
-            MoveToDestination(destination.position);
+        if (navMeshAgent.enabled && !navMeshAgent.isStopped)
+        {
+            MoveToDestination();
+        }
     }
     #endregion
 
@@ -82,36 +96,41 @@ public class FootSoldier : Soldier
     #region  Methods
     public override void OnAttack()
     {
+        if (navMeshAgent.enabled)
+        {
+            navMeshAgent.isStopped = true;
+        }
         base.OnAttack();
         Debug.Log("Attack");
-        navMeshAgent.isStopped = true;
         StartCoroutine(RepeatAttack());
-
     }
 
 
     private IEnumerator RepeatAttack()
     {
         yield return new WaitForSeconds(data.CombatData.AttackDelay);
-        animator.Play(data.AnimationData.MeeleHash);
+        if (soldierReusableData.closestSoldier != null)
+            animator.Play(data.AnimationData.MeeleHash);
+        else
+            FindClosestTarget();
     }
 
 
     public override void OnDamage(int damage)
     {
         base.OnDamage(damage);
-    }
-
-
-    public override void MoveToDestination(Vector3 position)
-    {
-        navMeshAgent.destination = position;
-    }
-
-
-    public override void FindClosestTarget()
-    {
-        base.FindClosestTarget();
+        // Todo: deals damage, play sound and  particles effects
+        Debug.Log("Taken damage");
+        if (soldierReusableData.Health > damage)
+        {
+            soldierReusableData.Health -= damage;
+        }
+        else
+        {
+            soldierReusableData.closestSoldier = null;
+            SoldierBase.OnSoldierDeathAction(this);
+        }
+        //Todo: Pool it
     }
     #endregion
 
@@ -120,14 +139,21 @@ public class FootSoldier : Soldier
     public override void OnAnimationEnded()
     {
         base.OnAnimationEnded();
-        if (closestEnemy != null)
+        if (soldierReusableData.closestSoldier != null)
             StartCoroutine(RepeatAttack());
+        else
+            FindClosestTarget();
     }
     #endregion
 
 
     #region  Trigger Methods
-
+    public override void OnHitSoldier(Soldier soldier)
+    {
+        base.OnHitSoldier(soldier);
+        if (soldier == soldierReusableData.closestSoldier)
+            soldierReusableData.closestSoldier.OnDamage(data.CombatData.Damage);
+    }
     #endregion
 
 }

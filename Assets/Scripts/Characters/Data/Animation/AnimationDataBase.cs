@@ -18,6 +18,5 @@ public class AnimationDataBase
     public virtual void Initialize()
     {
         SpeedHash = Animator.StringToHash(speed);
-        Debug.Log(SpeedHash);
     }
 }

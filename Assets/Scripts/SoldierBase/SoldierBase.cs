@@ -38,6 +38,9 @@ public class SoldierBase : MonoBehaviour, IDamagable
     public List<Soldier> enemies = new();
 
 
+    public static Action<Soldier> OnSoldierDeathAction;
+
+
     #region Mono Methods
     /// <summary>
     /// This function is called when the object becomes enabled and active.
@@ -45,6 +48,7 @@ public class SoldierBase : MonoBehaviour, IDamagable
     void OnEnable()
     {
         BattleManager.OnNotifyBaseAction += OnNotifyBase;
+        OnSoldierDeathAction += OnSoldierDeath;
     }
 
     /// <summary>
@@ -53,6 +57,7 @@ public class SoldierBase : MonoBehaviour, IDamagable
     void OnDisable()
     {
         BattleManager.OnNotifyBaseAction -= OnNotifyBase;
+        OnSoldierDeathAction -= OnSoldierDeath;
     }
 
 
@@ -74,7 +79,7 @@ public class SoldierBase : MonoBehaviour, IDamagable
         if (gameTeam == GameTeamEnum.Enemy)
         {
             //Todo:Initate waves
-            //StartCoroutine(MakeWaves());
+            StartCoroutine(MakeWaves());
         }
     }
 
@@ -113,7 +118,7 @@ public class SoldierBase : MonoBehaviour, IDamagable
     {
         while (true)
         {
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(6);
             SpawnWave();
         }
 
@@ -125,8 +130,8 @@ public class SoldierBase : MonoBehaviour, IDamagable
     /// And also notifing the opposite base about this soldier so they can notify their soldiers.
     /// *AND THEY CAN FIGHT TO DEATH
     /// </summary>
-    [ShowIf("@gameTeam == GameTeam.Player")]
-    [Button("Spawn Wave/Enemy")]
+    [ShowIf("@this.gameTeam == GameTeamEnum.Player")]
+    [Button("Spawn Player")]
     public void SpawnWave()
     {
 
@@ -137,5 +142,21 @@ public class SoldierBase : MonoBehaviour, IDamagable
         BattleManager.OnNotifyBaseAction(gameTeam, soldier);
         BattleManager.OnNotifySoldierAction();
     }
+
+
+
+    private void OnSoldierDeath(Soldier soldier)
+    {
+        if (soldier.soldierBase.gameTeam == gameTeam)
+        {
+            soldiers.Remove(soldier);
+        }
+        else
+        {
+            enemies.Remove(soldier);
+        }
+        Destroy(soldier.gameObject);
+    }
+
     #endregion
 }

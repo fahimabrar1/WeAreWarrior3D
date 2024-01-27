@@ -14,14 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Prefab: {fileID: 0}
   SoldierName: Erik
+  Health: 20
   NavigationData:
     <Speed>k__BackingField: 2
     <Acceleration>k__BackingField: 15
     <Radius>k__BackingField: 0.2
-    <StoppingDistance>k__BackingField: 3.5
+    <StoppingDistance>k__BackingField: 3
   AnimationData:
     speed: speed
     meele: MeeleDownwards
   CombatData:
-    <CombatRadius>k__BackingField: 3.5
+    <Damage>k__BackingField: 4
+    <CombatRadius>k__BackingField: 3
     <AttackDelay>k__BackingField: 2

@@ -4,7 +4,7 @@ using UnityEngine.AI;
 using System.Linq;
 using System;
 
-[RequireComponent(typeof(NavMeshAgent)), RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(NavMeshAgent)), RequireComponent(typeof(Rigidbody)), RequireComponent(typeof(NavMeshObstacle))]
 public class Soldier : MonoBehaviour, IDamagable, IAttackable
 {
     protected GameTeamEnum gameTeam { get; set; }
@@ -12,6 +12,10 @@ public class Soldier : MonoBehaviour, IDamagable, IAttackable
     [BoxGroup("Components")]
     [Tooltip("Navigation For the solder")]
     public NavMeshAgent navMeshAgent;
+
+    [BoxGroup("Components")]
+    [Tooltip("Navmesh Obstacle, allows agent to act as obstacle during combat, so other agent's won't push it aside")]
+    public NavMeshObstacle navMeshObstacle;
 
     [BoxGroup("Components")]
     [Tooltip("Animator of the solder")]
@@ -29,10 +33,9 @@ public class Soldier : MonoBehaviour, IDamagable, IAttackable
 
 
     [BoxGroup("Data")]
-    public Transform destination;
+    public SoldierReusableData soldierReusableData;
 
-    [BoxGroup("Data")]
-    public Soldier closestEnemy;
+
 
     #region Mono Methods
     /// <summary>
@@ -41,8 +44,10 @@ public class Soldier : MonoBehaviour, IDamagable, IAttackable
     void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
+        navMeshObstacle = GetComponent<NavMeshObstacle>();
         animator = GetComponentInChildren<Animator>();
     }
+
 
 
 
@@ -83,46 +88,75 @@ public class Soldier : MonoBehaviour, IDamagable, IAttackable
     /// </summary>
     public virtual void OnAttack()
     {
-        navMeshAgent.isStopped = true;
+        ToggleNavAgent(false);
+    }
+
+
+
+    /// <summary>
+    /// On Hit Triggers when the weapon is hitted with an enemy
+    /// </summary>
+    public virtual void OnHitSoldier(Soldier soldier)
+    {
     }
 
     /// <summary>
     /// Move to the destination
     /// </summary>
-    public virtual void MoveToDestination(Vector3 position)
+    public void MoveToDestination()
     {
-        navMeshAgent.SetDestination(position);
+        if (soldierReusableData.destination != null)
+            navMeshAgent.destination = soldierReusableData.destination.position;
     }
 
     /// <summary>
     /// Finds the closest target, if there are no soldiers then the target is their base 
     /// </summary>
-    public virtual void FindClosestTarget()
+    public void FindClosestTarget()
     {
+        ToggleNavAgent(true);
         if (!soldierBase.enemies.Any())
         {
-            closestEnemy = null;
+            soldierReusableData.closestSoldier = null;
             if (soldierBase.opponentBase != null)
             {
-                destination = soldierBase.opponentBase.transform;
+                soldierReusableData.destination = soldierBase.opponentBase.transform;
+                navMeshAgent.isStopped = false;
+                Debug.Log($"Set target: {navMeshAgent.speed}");
+
+                return;
             }
         }
         else
         {
             // Return if already engaged with an enemy
-            if (closestEnemy != null) return;
+            if (soldierReusableData.closestSoldier != null) return;
 
-            closestEnemy = soldierBase.enemies
+            soldierReusableData.closestSoldier = soldierBase.enemies
                .OrderBy(enemy => Vector3.Distance(enemy.transform.position, transform.position))
                .FirstOrDefault();
 
-            if (closestEnemy != null && closestEnemy.transform != null)
+            if (soldierReusableData.closestSoldier != null)
             {
+                soldierReusableData.destination = soldierReusableData.closestSoldier.transform;
                 navMeshAgent.isStopped = false;
-                destination = closestEnemy.transform;
             }
             // Handle the case when there are no enemies, or do something else.
+            return;
         }
+        soldierReusableData.destination = null;
+    }
+
+
+    void ToggleNavAgent(bool toogle)
+    {
+
+        //! never enable both agent and obstacle togehter, else This can lead to erroneous behavior.
+        //* making both false to ignore waring and any abnormal behavior
+        navMeshAgent.enabled = false;
+        navMeshObstacle.enabled = false;
+        navMeshAgent.enabled = toogle;
+        navMeshObstacle.enabled = !toogle;
     }
 
 

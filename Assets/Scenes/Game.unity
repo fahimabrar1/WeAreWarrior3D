@@ -228,18 +228,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 240188364}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &335946914 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 103335383200624986, guid: 0e916c4eb05020945a1970cc2e595d83,
-    type: 3}
-  m_PrefabInstance: {fileID: 2076986339}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 362bbec35e862184f91a9c8459f19174, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &345904257
 GameObject:
   m_ObjectHideFlags: 0
@@ -602,18 +590,6 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
---- !u!114 &806556415 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 103335383200624986, guid: 0e916c4eb05020945a1970cc2e595d83,
-    type: 3}
-  m_PrefabInstance: {fileID: 990042620}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 362bbec35e862184f91a9c8459f19174, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &810047287
 GameObject:
   m_ObjectHideFlags: 0
@@ -896,12 +872,11 @@ MonoBehaviour:
   gameTeam: 0
   health: 100
   spawnArea: {fileID: 917106609}
-  opponentBase: {fileID: 1926846120}
+  opponentBase: {fileID: 0}
   soldierPrefab: {fileID: 1455918053934231001, guid: 0e916c4eb05020945a1970cc2e595d83,
     type: 3}
   soldiers: []
-  enemies:
-  - {fileID: 806556415}
+  enemies: []
 --- !u!65 &917106609
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1128,79 +1103,6 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
---- !u!1001 &990042620
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 103335383200624986, guid: 0e916c4eb05020945a1970cc2e595d83,
-        type: 3}
-      propertyPath: soldierBase
-      value: 
-      objectReference: {fileID: 1926846120}
-    - target: {fileID: 622471904266893219, guid: 0e916c4eb05020945a1970cc2e595d83,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 3.94
-      objectReference: {fileID: 0}
-    - target: {fileID: 622471904266893219, guid: 0e916c4eb05020945a1970cc2e595d83,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 622471904266893219, guid: 0e916c4eb05020945a1970cc2e595d83,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.23
-      objectReference: {fileID: 0}
-    - target: {fileID: 622471904266893219, guid: 0e916c4eb05020945a1970cc2e595d83,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 622471904266893219, guid: 0e916c4eb05020945a1970cc2e595d83,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 622471904266893219, guid: 0e916c4eb05020945a1970cc2e595d83,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 622471904266893219, guid: 0e916c4eb05020945a1970cc2e595d83,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 622471904266893219, guid: 0e916c4eb05020945a1970cc2e595d83,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 622471904266893219, guid: 0e916c4eb05020945a1970cc2e595d83,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: -90
-      objectReference: {fileID: 0}
-    - target: {fileID: 622471904266893219, guid: 0e916c4eb05020945a1970cc2e595d83,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1455918053934231001, guid: 0e916c4eb05020945a1970cc2e595d83,
-        type: 3}
-      propertyPath: m_Name
-      value: Foot Soldier (1)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 0e916c4eb05020945a1970cc2e595d83, type: 3}
 --- !u!1 &1006411570
 GameObject:
   m_ObjectHideFlags: 0
@@ -1675,8 +1577,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1926846119}
-  - component: {fileID: 1926846120}
   - component: {fileID: 1926846121}
+  - component: {fileID: 1926846120}
   m_Layer: 0
   m_Name: Enemy Base
   m_TagString: Untagged
@@ -1716,12 +1618,11 @@ MonoBehaviour:
   gameTeam: 1
   health: 100
   spawnArea: {fileID: 0}
-  opponentBase: {fileID: 917106608}
+  opponentBase: {fileID: 0}
   soldierPrefab: {fileID: 1455918053934231001, guid: 0e916c4eb05020945a1970cc2e595d83,
     type: 3}
   soldiers: []
-  enemies:
-  - {fileID: 335946914}
+  enemies: []
 --- !u!65 &1926846121
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1882,79 +1783,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 917106607}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &2076986339
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 103335383200624986, guid: 0e916c4eb05020945a1970cc2e595d83,
-        type: 3}
-      propertyPath: soldierBase
-      value: 
-      objectReference: {fileID: 917106608}
-    - target: {fileID: 622471904266893219, guid: 0e916c4eb05020945a1970cc2e595d83,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -7.78
-      objectReference: {fileID: 0}
-    - target: {fileID: 622471904266893219, guid: 0e916c4eb05020945a1970cc2e595d83,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 622471904266893219, guid: 0e916c4eb05020945a1970cc2e595d83,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.23
-      objectReference: {fileID: 0}
-    - target: {fileID: 622471904266893219, guid: 0e916c4eb05020945a1970cc2e595d83,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 622471904266893219, guid: 0e916c4eb05020945a1970cc2e595d83,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 622471904266893219, guid: 0e916c4eb05020945a1970cc2e595d83,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 622471904266893219, guid: 0e916c4eb05020945a1970cc2e595d83,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 622471904266893219, guid: 0e916c4eb05020945a1970cc2e595d83,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 622471904266893219, guid: 0e916c4eb05020945a1970cc2e595d83,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 622471904266893219, guid: 0e916c4eb05020945a1970cc2e595d83,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1455918053934231001, guid: 0e916c4eb05020945a1970cc2e595d83,
-        type: 3}
-      propertyPath: m_Name
-      value: Foot Soldier
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 0e916c4eb05020945a1970cc2e595d83, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1966,5 +1794,3 @@ SceneRoots:
   - {fileID: 345904261}
   - {fileID: 928515701}
   - {fileID: 484770218}
-  - {fileID: 2076986339}
-  - {fileID: 990042620}

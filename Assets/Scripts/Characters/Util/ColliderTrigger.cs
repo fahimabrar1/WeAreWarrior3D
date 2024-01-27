@@ -34,22 +34,10 @@ public class ColliderTrigger : MonoBehaviour
         {
             if (other.TryGetComponent(out Soldier newSoldier))
             {
-                Debug.Log("Triggered");
 
                 if (newSoldier.soldierBase.gameTeam != soldier.soldierBase.gameTeam)
                 {
-                    //? Why are we casting?
-                    //  Each soldier have their own style of attacks, e.g. meele or ranged
-                    switch (newSoldier)
-                    {
-                        case FootSoldier:
-                            (newSoldier as FootSoldier).OnAttack();
-                            break;
-
-                        case RangedSoldier:
-                            (newSoldier as RangedSoldier).OnAttack();
-                            break;
-                    }
+                    newSoldier.OnAttack();
                 }
             }
         }

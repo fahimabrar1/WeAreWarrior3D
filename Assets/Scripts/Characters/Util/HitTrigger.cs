@@ -1,10 +1,12 @@
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class HitTrigger : MonoBehaviour
 {
-
+    [Required]
     public Collider Collider;
     public Soldier soldier;
+
 
     /// <summary>
     /// Awake is called when the script instance is being loaded.
@@ -30,9 +32,16 @@ public class HitTrigger : MonoBehaviour
         {
             if (other.TryGetComponent(out Soldier newSoldier))
             {
-                if (newSoldier.soldierBase.gameTeam == soldier.soldierBase.gameTeam)
-                    newSoldier.OnAttack();
+                if (soldier is FootSoldier footSoldier)
+                {
+                    footSoldier.OnHitSoldier(newSoldier);
+                }
+                else if (soldier is RangedSoldier rangedSoldier)
+                {
+                    rangedSoldier.OnHitSoldier(newSoldier);
+                }
             }
+
         }
     }
 }

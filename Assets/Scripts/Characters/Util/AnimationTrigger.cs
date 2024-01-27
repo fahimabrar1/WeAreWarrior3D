@@ -24,20 +24,14 @@ public class AnimationTrigger : MonoBehaviour
 
     private void OnAnimationEnded()
     {
-        //? Why are we casting?
-        //  Each soldier have their own style of attacks, e.g. meele or ranged
-        switch (soldier)
+        if (soldier is FootSoldier footSoldier)
         {
-
-            case FootSoldier:
-                (soldier as FootSoldier).OnAnimationEnded();
-                break;
-
-            case RangedSoldier:
-                (soldier as RangedSoldier).OnAnimationEnded();
-                break;
+            footSoldier.OnAnimationEnded();
         }
-
+        else if (soldier is RangedSoldier rangedSoldier)
+        {
+            rangedSoldier.OnAnimationEnded();
+        }
     }
 
 }
