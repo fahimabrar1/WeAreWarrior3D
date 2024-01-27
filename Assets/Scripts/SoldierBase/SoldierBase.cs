@@ -4,29 +4,35 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-[RequireComponent(typeof(BoxCollider))]
+
 public class SoldierBase : MonoBehaviour, IDamagable
 {
 
 
-    [BoxGroup("Variables")]
+    [BoxGroup("Base Data")]
     public GameTeamEnum gameTeam;
 
-    [BoxGroup("Variables")]
+    [BoxGroup("Base Data")]
     public int health;
 
 
-    [BoxGroup("Variables")]
+    [BoxGroup("Base Data")]
     public BoxCollider spawnArea;
 
 
-    [BoxGroup("Variables")]
+    [BoxGroup("Base Data")]
     public SoldierBase opponentBase;
 
-    [BoxGroup("Variables")]
-
+    [BoxGroup("Base Data")]
     [AssetSelector(Paths = "Assets/Prefabs/Soldiers")]
     public GameObject soldierPrefab;
+
+    [BoxGroup("Base Data")]
+    public HealthBar healthBar;
+
+    [BoxGroup("Base Data")]
+    public ReusableDataBase reusableData;
+
 
 
     [BoxGroup("Soldiers List")]
@@ -68,6 +74,7 @@ public class SoldierBase : MonoBehaviour, IDamagable
     void Awake()
     {
         spawnArea = GetComponent<BoxCollider>();
+        healthBar = GetComponentInChildren<HealthBar>();
     }
 
     /// <summary>
@@ -82,8 +89,6 @@ public class SoldierBase : MonoBehaviour, IDamagable
             StartCoroutine(MakeWaves());
         }
     }
-
-
     #endregion
 
     #region Methods
@@ -99,7 +104,6 @@ public class SoldierBase : MonoBehaviour, IDamagable
             soldiers.Add(soldier);
         else
             enemies.Add(soldier);
-
     }
 
 
@@ -121,7 +125,6 @@ public class SoldierBase : MonoBehaviour, IDamagable
             yield return new WaitForSeconds(6);
             SpawnWave();
         }
-
     }
 
 
@@ -159,4 +162,6 @@ public class SoldierBase : MonoBehaviour, IDamagable
     }
 
     #endregion
+
+
 }

@@ -31,6 +31,10 @@ public class Soldier : MonoBehaviour, IDamagable, IAttackable
     [Tooltip("The Base of this soldier")]
     public SoldierBase soldierBase;
 
+    [BoxGroup("Data")]
+    [Tooltip("Health component of the soldier")]
+    public HealthBar healthBar;
+
 
     [BoxGroup("Data")]
     public SoldierReusableData soldierReusableData;
@@ -46,9 +50,8 @@ public class Soldier : MonoBehaviour, IDamagable, IAttackable
         navMeshAgent = GetComponent<NavMeshAgent>();
         navMeshObstacle = GetComponent<NavMeshObstacle>();
         animator = GetComponentInChildren<Animator>();
+        healthBar = GetComponentInChildren<HealthBar>();
     }
-
-
 
 
     /// <summary>

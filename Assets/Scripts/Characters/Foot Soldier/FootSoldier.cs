@@ -27,6 +27,7 @@ public class FootSoldier : Soldier
         FindClosestTarget();
     }
 
+
     /// <summary>
     /// Sets up all the attributes of the soldier
     /// </summary>
@@ -41,6 +42,8 @@ public class FootSoldier : Soldier
             Health = data.Health,
             Speed = data.NavigationData.Speed,
         };
+
+        healthBar.SetInitialHealth(soldierReusableData.Health);
 
         // setup the attack sphere collider data
         sphereCollider.isTrigger = true;

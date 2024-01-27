@@ -4,10 +4,15 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 
 [Serializable]
-public class SoldierReusableData
+public class ReusableDataBase
 {
     [BoxGroup("Data")]
     public int Health;
+}
+
+[Serializable]
+public class SoldierReusableData : ReusableDataBase
+{
 
     [BoxGroup("Data")]
     public float Speed;
