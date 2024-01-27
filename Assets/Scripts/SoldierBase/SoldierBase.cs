@@ -10,7 +10,7 @@ public class SoldierBase : MonoBehaviour, IDamagable
 
 
     [BoxGroup("Base Data")]
-    public GameTeamEnum gameTeam;
+    public GameTeamEnums gameTeam;
 
     [BoxGroup("Base Data")]
     public int health;
@@ -83,11 +83,19 @@ public class SoldierBase : MonoBehaviour, IDamagable
     /// </summary>
     void Start()
     {
-        if (gameTeam == GameTeamEnum.Enemy)
+        reusableData = new()
+        {
+            //Todo: Fetch from SO
+            Health = 100
+        };
+        healthBar.SetInitialHealth(reusableData.Health);
+        if (gameTeam == GameTeamEnums.Enemy)
         {
             //Todo:Initate waves
             StartCoroutine(MakeWaves());
         }
+
+
     }
     #endregion
 
@@ -98,7 +106,7 @@ public class SoldierBase : MonoBehaviour, IDamagable
     /// </summary>
     /// <param name="team">Opposite team tag</param>
     /// <param name="soldier">Can be any type of soldier</param>
-    private void OnNotifyBase(GameTeamEnum team, Soldier soldier)
+    private void OnNotifyBase(GameTeamEnums team, Soldier soldier)
     {
         if (team == gameTeam)
             soldiers.Add(soldier);
@@ -108,12 +116,20 @@ public class SoldierBase : MonoBehaviour, IDamagable
 
 
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="damage"></param>
-    public void OnDamage(int damage)
+    public virtual void OnDamage(int damage)
     {
+
+        if (reusableData.Health > damage)
+        {
+            reusableData.Health -= damage;
+            healthBar.OnSetHealth(reusableData.Health);
+        }
+        else
+        {
+            //Todo: Destroy Base, emmit particles, end battle, fetch coins
+            BattleManager.OnEndBatleAction();
+            Destroy(gameObject);
+        }
     }
 
 
@@ -124,6 +140,7 @@ public class SoldierBase : MonoBehaviour, IDamagable
         {
             yield return new WaitForSeconds(6);
             SpawnWave();
+            break;
         }
     }
 
@@ -133,7 +150,7 @@ public class SoldierBase : MonoBehaviour, IDamagable
     /// And also notifing the opposite base about this soldier so they can notify their soldiers.
     /// *AND THEY CAN FIGHT TO DEATH
     /// </summary>
-    [ShowIf("@this.gameTeam == GameTeamEnum.Player")]
+    [ShowIf("@this.gameTeam == GameTeamEnums.Player")]
     [Button("Spawn Player")]
     public void SpawnWave()
     {

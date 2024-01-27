@@ -7,7 +7,7 @@ using System;
 [RequireComponent(typeof(NavMeshAgent)), RequireComponent(typeof(Rigidbody)), RequireComponent(typeof(NavMeshObstacle))]
 public class Soldier : MonoBehaviour, IDamagable, IAttackable
 {
-    protected GameTeamEnum gameTeam { get; set; }
+    protected GameTeamEnums gameTeam { get; set; }
 
     [BoxGroup("Components")]
     [Tooltip("Navigation For the solder")]
@@ -60,6 +60,7 @@ public class Soldier : MonoBehaviour, IDamagable, IAttackable
     void OnEnable()
     {
         BattleManager.OnNotifySoldierAction += FindClosestTarget;
+        BattleManager.OnEndBatleAction += OnEndBatle;
     }
 
 
@@ -70,7 +71,9 @@ public class Soldier : MonoBehaviour, IDamagable, IAttackable
     void OnDisable()
     {
         BattleManager.OnNotifySoldierAction -= FindClosestTarget;
+        BattleManager.OnEndBatleAction -= OnEndBatle;
     }
+
 
 
     #endregion
@@ -91,7 +94,6 @@ public class Soldier : MonoBehaviour, IDamagable, IAttackable
     /// </summary>
     public virtual void OnAttack()
     {
-        ToggleNavAgent(false);
     }
 
 
@@ -118,13 +120,14 @@ public class Soldier : MonoBehaviour, IDamagable, IAttackable
     public void FindClosestTarget()
     {
         ToggleNavAgent(true);
+        navMeshAgent.isStopped = false;
+
         if (!soldierBase.enemies.Any())
         {
             soldierReusableData.closestSoldier = null;
             if (soldierBase.opponentBase != null)
             {
                 soldierReusableData.destination = soldierBase.opponentBase.transform;
-                navMeshAgent.isStopped = false;
                 Debug.Log($"Set target: {navMeshAgent.speed}");
 
                 return;
@@ -142,7 +145,6 @@ public class Soldier : MonoBehaviour, IDamagable, IAttackable
             if (soldierReusableData.closestSoldier != null)
             {
                 soldierReusableData.destination = soldierReusableData.closestSoldier.transform;
-                navMeshAgent.isStopped = false;
             }
             // Handle the case when there are no enemies, or do something else.
             return;
@@ -151,16 +153,27 @@ public class Soldier : MonoBehaviour, IDamagable, IAttackable
     }
 
 
-    void ToggleNavAgent(bool toogle)
+    public void ToggleNavAgent(bool toogle)
     {
-
         //! never enable both agent and obstacle togehter, else This can lead to erroneous behavior.
         //* making both false to ignore waring and any abnormal behavior
         navMeshAgent.enabled = false;
         navMeshObstacle.enabled = false;
-        navMeshAgent.enabled = toogle;
+
         navMeshObstacle.enabled = !toogle;
+        navMeshAgent.enabled = toogle;
     }
+
+
+    public virtual void OnHitBase(SoldierBase hittedBase)
+    {
+    }
+
+    public virtual void OnEndBatle()
+    {
+
+    }
+
 
 
     #endregion

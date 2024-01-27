@@ -13,8 +13,9 @@ public class BattleManager : MonoBehaviour
     public SoldierBase enemyBase;
 
 
-    public static Action<GameTeamEnum, Soldier> OnNotifyBaseAction;
+    public static Action<GameTeamEnums, Soldier> OnNotifyBaseAction;
     public static Action OnNotifySoldierAction;
+    public static Action OnEndBatleAction;
 
 
 
@@ -24,10 +25,10 @@ public class BattleManager : MonoBehaviour
     /// </summary>
     void Start()
     {
-        playerbase.gameTeam = GameTeamEnum.Player;
+        playerbase.gameTeam = GameTeamEnums.Player;
         playerbase.opponentBase = enemyBase;
 
-        enemyBase.gameTeam = GameTeamEnum.Enemy;
+        enemyBase.gameTeam = GameTeamEnums.Enemy;
         enemyBase.opponentBase = playerbase;
     }
 

@@ -28,20 +28,19 @@ public class HitTrigger : MonoBehaviour
     /// <param name="other">The other Collider involved in this collision.</param>
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag(SoldierEnum.Soldier.ToString()))
+        if (other.gameObject.CompareTag(DefaultEnums.Soldier.ToString()))
         {
             if (other.TryGetComponent(out Soldier newSoldier))
             {
-                if (soldier is FootSoldier footSoldier)
-                {
-                    footSoldier.OnHitSoldier(newSoldier);
-                }
-                else if (soldier is RangedSoldier rangedSoldier)
-                {
-                    rangedSoldier.OnHitSoldier(newSoldier);
-                }
+                soldier.OnHitSoldier(newSoldier);
             }
-
+        }
+        else if (other.gameObject.CompareTag(DefaultEnums.Base.ToString()))
+        {
+            if (other.TryGetComponent(out SoldierBase hittedBasesoldierBase))
+            {
+                soldier.OnHitBase(hittedBasesoldierBase);
+            }
         }
     }
 }

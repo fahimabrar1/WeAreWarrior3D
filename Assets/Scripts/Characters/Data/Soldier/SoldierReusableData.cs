@@ -22,4 +22,10 @@ public class SoldierReusableData : ReusableDataBase
 
     [BoxGroup("Data")]
     public Soldier closestSoldier;
+    [BoxGroup("Data")]
+    public bool isAttacking;
+
+    [BoxGroup("Data")]
+    public SoldierBase soldierBaseTarget;
+
 }

@@ -41,6 +41,7 @@ public class FootSoldier : Soldier
         {
             Health = data.Health,
             Speed = data.NavigationData.Speed,
+            isAttacking = false,
         };
 
         healthBar.SetInitialHealth(soldierReusableData.Health);
@@ -66,7 +67,7 @@ public class FootSoldier : Soldier
     /// </summary>
     void Update()
     {
-        if (navMeshAgent.enabled! && navMeshAgent.remainingDistance > 0 && soldierReusableData.destination != null)
+        if (navMeshAgent.enabled && navMeshAgent.remainingDistance > 0 && soldierReusableData.destination != null)
         {
             float stoppingDistance = data.NavigationData.StoppingDistance + data.NavigationData.Radius * 2;
 
@@ -79,6 +80,10 @@ public class FootSoldier : Soldier
 
             // Set the animation speed based on the agent's speed
             animator.SetFloat(data.AnimationData.SpeedHash, navMeshAgent.speed);
+        }
+        else if (navMeshObstacle.enabled)
+        {
+            animator.SetFloat(data.AnimationData.SpeedHash, 0);
         }
     }
 
@@ -99,11 +104,8 @@ public class FootSoldier : Soldier
     #region  Methods
     public override void OnAttack()
     {
-        if (navMeshAgent.enabled)
-        {
-            navMeshAgent.isStopped = true;
-        }
         base.OnAttack();
+        ToggleNavAgent(false);
         Debug.Log("Attack");
         StartCoroutine(RepeatAttack());
     }
@@ -112,21 +114,30 @@ public class FootSoldier : Soldier
     private IEnumerator RepeatAttack()
     {
         yield return new WaitForSeconds(data.CombatData.AttackDelay);
-        if (soldierReusableData.closestSoldier != null)
+        if (soldierReusableData.closestSoldier != null || soldierReusableData.soldierBaseTarget != null)
+        {
             animator.Play(data.AnimationData.MeeleHash);
+            soldierReusableData.isAttacking = true;
+        }
         else
+        {
             FindClosestTarget();
+        }
     }
 
 
     public override void OnDamage(int damage)
     {
+
+
+
         base.OnDamage(damage);
         // Todo: deals damage, play sound and  particles effects
         Debug.Log("Taken damage");
         if (soldierReusableData.Health > damage)
         {
             soldierReusableData.Health -= damage;
+            healthBar.OnSetHealth(soldierReusableData.Health); ;
         }
         else
         {
@@ -135,14 +146,25 @@ public class FootSoldier : Soldier
         }
         //Todo: Pool it
     }
+
+
+    public override void OnEndBatle()
+    {
+        navMeshAgent.speed = 0;
+        navMeshAgent.enabled = false;
+        soldierReusableData.closestSoldier = null;
+    }
     #endregion
 
 
     #region  Events Methods
     public override void OnAnimationEnded()
     {
-        base.OnAnimationEnded();
-        if (soldierReusableData.closestSoldier != null)
+        if (!soldierReusableData.isAttacking)
+            return;
+        soldierReusableData.isAttacking = false;
+
+        if (soldierReusableData.closestSoldier != null || soldierReusableData.soldierBaseTarget != null)
             StartCoroutine(RepeatAttack());
         else
             FindClosestTarget();
@@ -154,9 +176,19 @@ public class FootSoldier : Soldier
     public override void OnHitSoldier(Soldier soldier)
     {
         base.OnHitSoldier(soldier);
-        if (soldier == soldierReusableData.closestSoldier)
+        if (soldier == soldierReusableData.closestSoldier && soldierReusableData.isAttacking)
             soldierReusableData.closestSoldier.OnDamage(data.CombatData.Damage);
     }
+
+
+
+    public override void OnHitBase(SoldierBase hittedBase)
+    {
+        if (soldierReusableData.isAttacking)
+            hittedBase.OnDamage(data.CombatData.Damage);
+    }
+
+
     #endregion
 
 }

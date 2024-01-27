@@ -1,9 +1,10 @@
-public enum SoldierEnum
+public enum DefaultEnums
 {
     Soldier,
+    Base
 }
 
-public enum GameTeamEnum
+public enum GameTeamEnums
 {
     Player,
     Enemy

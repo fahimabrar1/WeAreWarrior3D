@@ -24,14 +24,15 @@ public class AnimationTrigger : MonoBehaviour
 
     private void OnAnimationEnded()
     {
-        if (soldier is FootSoldier footSoldier)
-        {
-            footSoldier.OnAnimationEnded();
-        }
-        else if (soldier is RangedSoldier rangedSoldier)
-        {
-            rangedSoldier.OnAnimationEnded();
-        }
+        soldier.OnAnimationEnded();
+        // if (soldier is FootSoldier footSoldier)
+        // {
+        //     footSoldier.OnAnimationEnded();
+        // }
+        // else if (soldier is RangedSoldier rangedSoldier)
+        // {
+        //     rangedSoldier.OnAnimationEnded();
+        // }
     }
 
 }

@@ -30,17 +30,24 @@ public class ColliderTrigger : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
 
-        if (other.gameObject.CompareTag(SoldierEnum.Soldier.ToString()))
+        if (other.gameObject.CompareTag(DefaultEnums.Soldier.ToString()) || other.gameObject.CompareTag(DefaultEnums.Base.ToString()))
         {
             if (other.TryGetComponent(out Soldier newSoldier))
             {
 
                 if (newSoldier.soldierBase.gameTeam != soldier.soldierBase.gameTeam)
                 {
-                    newSoldier.OnAttack();
+                    soldier.OnAttack();
+                }
+            }
+            else if (other.TryGetComponent(out SoldierBase newBase))
+            {
+                if (newBase.gameTeam != soldier.soldierBase.gameTeam)
+                {
+                    soldier.soldierReusableData.soldierBaseTarget = newBase;
+                    soldier.OnAttack();
                 }
             }
         }
-
     }
 }

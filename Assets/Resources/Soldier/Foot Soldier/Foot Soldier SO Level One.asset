@@ -19,11 +19,11 @@ MonoBehaviour:
     <Speed>k__BackingField: 2
     <Acceleration>k__BackingField: 15
     <Radius>k__BackingField: 0.2
-    <StoppingDistance>k__BackingField: 3
+    <StoppingDistance>k__BackingField: 2.5
   AnimationData:
     speed: speed
     meele: MeeleDownwards
   CombatData:
     <Damage>k__BackingField: 4
-    <CombatRadius>k__BackingField: 3
+    <CombatRadius>k__BackingField: 2.5
     <AttackDelay>k__BackingField: 2
