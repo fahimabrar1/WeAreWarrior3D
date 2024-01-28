@@ -1,19 +1,32 @@
+using DG.Tweening;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
     // Singleton instance
-    public static GameManager Instance;
+    public static GameManager instance { get; private set; }
+
+    public BattleManager battleManager;
 
     public float Score { get; set; }
 
-    private void Awake()
+    /// <summary>
+    /// Awake is called when the script instance is being loaded.
+    /// </summary>
+    void Awake()
     {
-        // Singleton pattern
-        if (Instance == null)
-            Instance = this;
-        else
-            Destroy(gameObject);
+        if (instance != null && instance != this)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
+        instance = this;
+        DontDestroyOnLoad(this);
+
+        Application.targetFrameRate = 60;
+        DOTween.Init(true, true, LogBehaviour.Verbose);
+
+        battleManager = FindAnyObjectByType<BattleManager>();
     }
 
     private void Start()
@@ -22,5 +35,4 @@ public class GameManager : MonoBehaviour
         Score = 0f;
     }
 
-    // Add any additional game management methods as needed
 }

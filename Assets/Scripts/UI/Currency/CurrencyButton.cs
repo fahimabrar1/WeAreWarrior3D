@@ -61,5 +61,6 @@ public class CurrencyButton : MonoBehaviour
     public void OnClickButton()
     {
         currencyManager.OnClickCurrencyButton(cost);
+        GameManager.instance.battleManager.playerbase.SpawnSoldier();
     }
 }

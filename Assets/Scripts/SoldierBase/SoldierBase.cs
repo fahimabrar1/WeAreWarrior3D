@@ -139,7 +139,7 @@ public class SoldierBase : MonoBehaviour, IDamagable
         while (true)
         {
             yield return new WaitForSeconds(6);
-            SpawnWave();
+            SpawnSoldier();
             break;
         }
     }
@@ -152,9 +152,8 @@ public class SoldierBase : MonoBehaviour, IDamagable
     /// </summary>
     [ShowIf("@this.gameTeam == GameTeamEnums.Player")]
     [Button("Spawn Player")]
-    public void SpawnWave()
+    public void SpawnSoldier()
     {
-
         Vector3 point = RandomPointGenerator.RandomPointInBounds(spawnArea.bounds);
         //Todo: Move data to scriptable object
         var soldier = Instantiate(soldierPrefab, point, Quaternion.identity).GetComponent<Soldier>();

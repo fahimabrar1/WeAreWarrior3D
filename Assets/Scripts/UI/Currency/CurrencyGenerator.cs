@@ -69,6 +69,7 @@ public class CurrencyGenerator : MonoBehaviour
     internal void DeductCurrency(int cost)
     {
         totalCurrencyCount -= cost;
+        currencyManager.OnUpdateButtonsAction(totalCurrencyCount);
         currencyCounter.text = totalCurrencyCount.ToString();
     }
 }
