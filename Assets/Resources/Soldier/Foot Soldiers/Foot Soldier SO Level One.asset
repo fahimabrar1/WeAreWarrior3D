@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beba41344debf2f41a88e0b047aec919, type: 3}
   m_Name: Foot Soldier SO Level One
   m_EditorClassIdentifier: 
-  Prefab: {fileID: 0}
+  Prefab: {fileID: 1455918053934231001, guid: 0e916c4eb05020945a1970cc2e595d83, type: 3}
   SoldierName: Erik
   Health: 20
   NavigationData:

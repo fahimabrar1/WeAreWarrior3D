@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e5a7b9042f7b2e4191bf8374ca32f3b, type: 3}
+  m_Name: Level Data
+  m_EditorClassIdentifier: 
+  levelName: 
+  levelSoldiersData:
+  - unlockPrice: 100
+    soldierType: 0
+    soldierData: {fileID: 11400000, guid: a6077f0741d919240acf52ae51b9d955, type: 2}
+  waveListData: {fileID: 11400000, guid: 96379b665ff9a2e40bd87af683ff5bf0, type: 2}

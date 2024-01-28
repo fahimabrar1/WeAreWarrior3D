@@ -9,12 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: beba41344debf2f41a88e0b047aec919, type: 3}
-  m_Name: Foot Soldier SO
+  m_Script: {fileID: 11500000, guid: 0c2cb1a69f08c58429c42a5599fe39e7, type: 3}
+  m_Name: Wave 5F
   m_EditorClassIdentifier: 
-  Prefab: {fileID: 0}
-  SoldierName: 
-  AnimationData:
-    speed: speed
-  CombatData:
-    <CombatRadius>k__BackingField: 2
+  DelayBeforeWave: 5
+  SpawningDelay: 0.35
+  SoldierTypes: 0000000000000000000000000000000000000000

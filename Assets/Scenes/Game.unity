@@ -2169,6 +2169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   battleManager: {fileID: 0}
+  LevelData: {fileID: 11400000, guid: 8b90a89328fbd9a478d7f8739c6f8c11, type: 2}
 --- !u!4 &1219740099
 Transform:
   m_ObjectHideFlags: 0

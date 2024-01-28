@@ -1,4 +1,5 @@
 using DG.Tweening;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -7,6 +8,9 @@ public class GameManager : MonoBehaviour
     public static GameManager instance { get; private set; }
 
     public BattleManager battleManager;
+
+    [AssetSelector(Paths = "Assets/Resources/Levels")]
+    public LevelSO LevelData;
 
     public float Score { get; set; }
 
