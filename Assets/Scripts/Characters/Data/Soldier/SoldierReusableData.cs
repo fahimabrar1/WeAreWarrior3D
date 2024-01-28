@@ -13,19 +13,21 @@ public class ReusableDataBase
 [Serializable]
 public class SoldierReusableData : ReusableDataBase
 {
-
-    [BoxGroup("Data")]
+    [BoxGroup("All Soldier Data")]
     public float Speed;
 
-    [BoxGroup("Data")]
+    [BoxGroup("All Soldier Data")]
     public Transform destination;
 
-    [BoxGroup("Data")]
+    [BoxGroup("All Soldier Data")]
     public Soldier closestSoldier;
-    [BoxGroup("Data")]
+    [BoxGroup("All Soldier Data")]
     public bool isAttacking;
 
-    [BoxGroup("Data")]
+    [BoxGroup("All Soldier Data")]
     public SoldierBase soldierBaseTarget;
 
+    // For Ranged Soldiers
+    [BoxGroup("Ranged Soldier Data")]
+    public float ProjectileSpeed;
 }

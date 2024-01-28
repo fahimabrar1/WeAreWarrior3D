@@ -10,6 +10,7 @@ public class RangedSoldier : Soldier
     [BoxGroup("Data")]
     [AssetSelector(Paths = "Assets/Resources/Soldier/Ranged Soldier")]
     public RangedSoldierSO data;
+    public Transform weapon;
 
 
     #region Mono Methods
@@ -36,6 +37,7 @@ public class RangedSoldier : Soldier
             Health = data.Health,
             Speed = data.NavigationData.Speed,
             isAttacking = false,
+            ProjectileSpeed = data.CombatData.ProjectileSpeed
         };
 
         healthBar.SetInitialHealth(soldierReusableData.Health);
@@ -46,12 +48,16 @@ public class RangedSoldier : Soldier
 
         // setup navmesh data for soldier
         Debug.Log($"Setting speed: {soldierReusableData.Speed}");
+        navMeshObstacle.enabled = false;
         navMeshAgent.speed = soldierReusableData.Speed;
         navMeshAgent.acceleration = data.NavigationData.Acceleration;
         navMeshAgent.radius = data.NavigationData.Radius;
         navMeshAgent.stoppingDistance = data.NavigationData.StoppingDistance;
         navMeshAgent.isStopped = true;
         Debug.Log($"All Set: {navMeshAgent.speed}");
+
+        Rigidbody.useGravity = false;
+        Rigidbody.isKinematic = true;
 
     }
 
@@ -92,6 +98,18 @@ public class RangedSoldier : Soldier
         {
             MoveToDestination();
         }
+        if (!navMeshAgent.enabled)
+        {
+            if (soldierReusableData.closestSoldier != null)
+            {
+                transform.LookAt(soldierReusableData.closestSoldier.transform);
+            }
+            else if (soldierReusableData.soldierBaseTarget != null)
+            {
+                transform.LookAt(soldierReusableData.soldierBaseTarget.transform);
+            }
+
+        }
     }
     #endregion
     #region  Methods
@@ -109,7 +127,7 @@ public class RangedSoldier : Soldier
         yield return new WaitForSeconds(data.CombatData.AttackDelay);
         if (soldierReusableData.closestSoldier != null || soldierReusableData.soldierBaseTarget != null)
         {
-            animator.Play(data.AnimationData.ThrowProjectileHash);
+            animator.Play(data.AnimationData.ThrowProjectileState);
             soldierReusableData.isAttacking = true;
         }
         else
@@ -151,8 +169,35 @@ public class RangedSoldier : Soldier
 
 
     #region  Events Methods
+
+
+    public override void OnAnimationTransition()
+    {
+        weapon.gameObject.SetActive(false);
+        if (!soldierReusableData.isAttacking)
+            return;
+        if (soldierReusableData.closestSoldier != null || soldierReusableData.soldierBaseTarget != null)
+        {
+            var rot = weapon.rotation;
+            rot.z = 0;
+            rot.x = 0;
+            var projectile = Instantiate(data.Projectile, weapon.position, rot);
+            if (projectile.TryGetComponent(out HitTrigger hit))
+            {
+                hit.soldier = this;
+            }
+            if (projectile.TryGetComponent(out ProjectileMover projectileMover))
+            {
+                projectileMover.soldier = this;
+            }
+        }
+
+    }
+
+
     public override void OnAnimationEnded()
     {
+        weapon.gameObject.SetActive(true);
         if (!soldierReusableData.isAttacking)
             return;
         soldierReusableData.isAttacking = false;

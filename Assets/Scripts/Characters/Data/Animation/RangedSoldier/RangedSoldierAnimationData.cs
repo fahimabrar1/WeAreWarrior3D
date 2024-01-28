@@ -1,13 +1,15 @@
+using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
+[Serializable]
 public class RangedSoldierAnimationData : AnimationDataBase
 {
     [BoxGroup("Animation States")]
-    [SerializeField] private string throwProjectile = "throw";
+    [SerializeField] private string throwProjectileState = "Throw";
 
     [BoxGroup("String To Hashes")]
-    public int ThrowProjectileHash { get; private set; }
+    public int ThrowProjectileState { get; private set; }
 
     /// <summary>
     /// We can add more unique varaibles into this foot soldier character class
@@ -15,7 +17,7 @@ public class RangedSoldierAnimationData : AnimationDataBase
     public override void Initialize()
     {
         base.Initialize();
-        ThrowProjectileHash = Animator.StringToHash(throwProjectile);
+        ThrowProjectileState = Animator.StringToHash(throwProjectileState);
     }
 
 }

@@ -6,6 +6,7 @@ public class HitTrigger : MonoBehaviour
     [Required]
     public Collider Collider;
     public Soldier soldier;
+    public bool isDestroyable;
 
 
     /// <summary>
@@ -22,6 +23,7 @@ public class HitTrigger : MonoBehaviour
     }
 
 
+
     /// <summary>
     /// OnTriggerEnter is called when the Collider other enters the trigger.
     /// </summary>
@@ -34,6 +36,9 @@ public class HitTrigger : MonoBehaviour
             {
                 soldier.OnHitSoldier(newSoldier);
             }
+            //Todo: pool it
+            if (isDestroyable)
+                Destroy(gameObject);
         }
         else if (other.gameObject.CompareTag(DefaultEnums.Base.ToString()))
         {
@@ -41,6 +46,10 @@ public class HitTrigger : MonoBehaviour
             {
                 soldier.OnHitBase(hittedBasesoldierBase);
             }
+            //Todo: pool it
+            if (isDestroyable)
+                Destroy(gameObject);
         }
+
     }
 }

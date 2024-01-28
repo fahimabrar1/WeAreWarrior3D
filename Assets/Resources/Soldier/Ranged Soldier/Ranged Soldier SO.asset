@@ -12,16 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9bdceef38039f041a0c4f0493ee8de7, type: 3}
   m_Name: Ranged Soldier SO
   m_EditorClassIdentifier: 
-  Prefab: {fileID: 0}
-  SoldierName: 
+  Prefab: {fileID: 111517070532838299, guid: 839c8f8e1e91ac342b45fda36a7a6580, type: 3}
+  Health: 8
+  SoldierName: Robin
   SoldierType: 1
-  Health: 4
+  Projectile: {fileID: 6771194888584951579, guid: 2bbd50d21a633934190ff41e61d6ab8b,
+    type: 3}
   NavigationData:
     <Speed>k__BackingField: 2
     <Acceleration>k__BackingField: 15
     <Radius>k__BackingField: 0.2
-    <StoppingDistance>k__BackingField: 2
+    <StoppingDistance>k__BackingField: 10
+  AnimationData:
+    speed: speed
+    throwProjectileState: Throw
   CombatData:
-    <Damage>k__BackingField: 4
-    <CombatRadius>k__BackingField: 2
-    <AttackDelay>k__BackingField: 2
+    <Damage>k__BackingField: 8
+    <CombatRadius>k__BackingField: 12
+    <AttackDelay>k__BackingField: 1.5
+    <ProjectileSpeed>k__BackingField: 15

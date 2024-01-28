@@ -18,6 +18,10 @@ public class Soldier : MonoBehaviour, IDamagable, IAttackable
     public NavMeshObstacle navMeshObstacle;
 
     [BoxGroup("Components")]
+    [Tooltip("RigidBody of the character")]
+    public Rigidbody Rigidbody;
+
+    [BoxGroup("Components")]
     [Tooltip("Animator of the solder")]
     public Animator animator;
 
@@ -51,6 +55,7 @@ public class Soldier : MonoBehaviour, IDamagable, IAttackable
         navMeshObstacle = GetComponent<NavMeshObstacle>();
         animator = GetComponentInChildren<Animator>();
         healthBar = GetComponentInChildren<HealthBar>();
+        Rigidbody = GetComponentInChildren<Rigidbody>();
     }
 
 
@@ -181,11 +186,11 @@ public class Soldier : MonoBehaviour, IDamagable, IAttackable
 
     #region Events Methods
 
-    protected virtual void OnAnimationStarted()
+    public virtual void OnAnimationStarted()
     {
     }
 
-    protected void OnAnimationTransition()
+    public virtual void OnAnimationTransition()
     {
     }
 

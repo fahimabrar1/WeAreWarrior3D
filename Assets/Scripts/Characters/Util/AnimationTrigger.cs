@@ -15,24 +15,18 @@ public class AnimationTrigger : MonoBehaviour
 
     private void OnAnimationStarted()
     {
+        soldier.OnAnimationStarted();
     }
 
     private void OnAnimationTransition()
     {
+        soldier.OnAnimationTransition();
     }
 
 
     private void OnAnimationEnded()
     {
         soldier.OnAnimationEnded();
-        // if (soldier is FootSoldier footSoldier)
-        // {
-        //     footSoldier.OnAnimationEnded();
-        // }
-        // else if (soldier is RangedSoldier rangedSoldier)
-        // {
-        //     rangedSoldier.OnAnimationEnded();
-        // }
     }
 
 }
