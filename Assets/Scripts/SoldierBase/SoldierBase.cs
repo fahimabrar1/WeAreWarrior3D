@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 
 public class SoldierBase : MonoBehaviour, IDamagable
@@ -43,9 +45,13 @@ public class SoldierBase : MonoBehaviour, IDamagable
     [SerializeField]
     public List<Soldier> enemies = new();
 
+    [ShowIf("@gameTeam==GameTeamEnums.Enemy")]
+    public WaveSO waveSO;
+
 
     public static Action<Soldier> OnSoldierDeathAction;
 
+    private int currentWave = 0;
 
     #region Mono Methods
     /// <summary>
@@ -83,6 +89,7 @@ public class SoldierBase : MonoBehaviour, IDamagable
     /// </summary>
     void Start()
     {
+
         reusableData = new()
         {
             //Todo: Fetch from SO
@@ -136,12 +143,22 @@ public class SoldierBase : MonoBehaviour, IDamagable
 
     public IEnumerator MakeWaves()
     {
-        while (true)
+        while (currentWave < GameManager.instance.LevelData.waveListData.waveList.Count)
         {
-            yield return new WaitForSeconds(6);
-            SpawnSoldier();
-            break;
+            waveSO = GameManager.instance.LevelData.waveListData.waveList[currentWave];
+
+            yield return new WaitForSeconds(waveSO.DelayBeforeWave);
+
+            foreach (var soldierType in waveSO.SoldierTypes)
+            {
+                SpawnSoldier(soldierType);
+                yield return new WaitForSeconds(waveSO.SpawningDelay);
+            }
+
+            currentWave++;
         }
+
+        //? What if we ran out of list?
     }
 
 
@@ -152,16 +169,28 @@ public class SoldierBase : MonoBehaviour, IDamagable
     /// </summary>
     [ShowIf("@this.gameTeam == GameTeamEnums.Player")]
     [Button("Spawn Player")]
-    public void SpawnSoldier()
+    public void SpawnSoldier(SoldierType soldierType = SoldierType.Foot)
     {
-        Vector3 point = RandomPointGenerator.RandomPointInBounds(spawnArea.bounds);
-        //Todo: Move data to scriptable object
-        var soldier = Instantiate(soldierPrefab, point, Quaternion.identity).GetComponent<Soldier>();
-        soldier.soldierBase = this;
-        BattleManager.OnNotifyBaseAction(gameTeam, soldier);
-        BattleManager.OnNotifySoldierAction();
-    }
+        LevelSoldierData soldierData = GameManager.instance.LevelData.levelSoldiersData
+            .Find(data => data.soldierType == soldierType);
 
+        if (soldierData != null)
+        {
+            Vector3 point = RandomPointGenerator.RandomPointInBounds(spawnArea.bounds);
+
+            // Todo: Move data to scriptable object
+            var soldier = Instantiate(soldierData.soldierData.Prefab, point, Quaternion.identity)
+                .GetComponent<Soldier>();
+
+            soldier.soldierBase = this;
+            BattleManager.OnNotifyBaseAction(gameTeam, soldier);
+            BattleManager.OnNotifySoldierAction();
+        }
+        else
+        {
+            Debug.LogError("SoldierData not found for SoldierType: " + soldierType);
+        }
+    }
 
 
     private void OnSoldierDeath(Soldier soldier)
