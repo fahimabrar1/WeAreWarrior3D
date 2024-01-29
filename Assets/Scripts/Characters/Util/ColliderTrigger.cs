@@ -32,20 +32,35 @@ public class ColliderTrigger : MonoBehaviour
 
         if (other.gameObject.CompareTag(DefaultEnums.Soldier.ToString()) || other.gameObject.CompareTag(DefaultEnums.Base.ToString()))
         {
+
             if (other.TryGetComponent(out Soldier newSoldier))
             {
 
-                if (newSoldier.soldierBase.gameTeam != soldier.soldierBase.gameTeam)
+                try
                 {
-                    soldier.OnAttack();
+                    if (newSoldier.soldierBase.gameTeam != soldier.soldierBase.gameTeam)
+                    {
+                        soldier.OnAttack();
+                    }
+                }
+                catch (System.Exception)
+                {
+                    Debug.LogWarning("The Initial Base is not Set Due To Pooling");
                 }
             }
             else if (other.TryGetComponent(out SoldierBase newBase))
             {
-                if (newBase.gameTeam != soldier.soldierBase.gameTeam)
+                try
                 {
-                    soldier.soldierReusableData.soldierBaseTarget = newBase;
-                    soldier.OnAttack();
+                    if (newBase.gameTeam != soldier.soldierBase.gameTeam)
+                    {
+                        soldier.soldierReusableData.soldierBaseTarget = newBase;
+                        soldier.OnAttack();
+                    }
+                }
+                catch (System.Exception)
+                {
+                    Debug.LogWarning("The Initial Game Type is not Set Due To Pooling");
                 }
             }
         }

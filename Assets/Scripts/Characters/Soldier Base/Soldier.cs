@@ -49,6 +49,9 @@ public class Soldier : MonoBehaviour, IDamagable, IAttackable
     [BoxGroup("Data")]
     public SoldierReusableData soldierReusableData;
 
+    [BoxGroup("Data")]
+    public SoldierObjectPoolGameObject pool;
+
 
 
     #region Mono Methods
@@ -70,20 +73,11 @@ public class Soldier : MonoBehaviour, IDamagable, IAttackable
     /// Start is called on the frame when a script is enabled just before
     /// any of the Update methods is called the first time.
     /// </summary>
-    void Start()
+    public virtual void StartBattle()
     {
         childModel.SetActive(true);
-
     }
 
-    /// <summary>
-    /// This function is called when the object becomes enabled and active.
-    /// </summary>
-    void OnEnable()
-    {
-        BattleManager.OnNotifySoldierAction += FindClosestTarget;
-        BattleManager.OnEndBatleAction += OnEndBatle;
-    }
 
 
 
@@ -101,7 +95,11 @@ public class Soldier : MonoBehaviour, IDamagable, IAttackable
     #endregion
 
     #region Methods
-
+    public void SetActionEvents()
+    {
+        BattleManager.OnNotifySoldierAction += FindClosestTarget;
+        BattleManager.OnEndBatleAction += OnEndBatle;
+    }
     /// <summary>
     /// Damage the object it is attached to
     /// </summary>
@@ -224,5 +222,7 @@ public class Soldier : MonoBehaviour, IDamagable, IAttackable
     public virtual void OnAnimationEnded()
     {
     }
+
+
     #endregion
 }

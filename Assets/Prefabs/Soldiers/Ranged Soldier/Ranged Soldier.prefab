@@ -122,6 +122,7 @@ MonoBehaviour:
   sphereCollider: {fileID: 9182773670459618423}
   soldierBase: {fileID: 0}
   healthBar: {fileID: 6449637915460784551}
+  childModel: {fileID: 618912848568940017}
   soldierReusableData:
     Health: 0
     Speed: 0
@@ -130,6 +131,10 @@ MonoBehaviour:
     isAttacking: 0
     soldierBaseTarget: {fileID: 0}
     ProjectileSpeed: 0
+  pool:
+    prefab: {fileID: 0}
+    parentTransform: {fileID: 0}
+    soldierType: 0
   data: {fileID: 11400000, guid: 65bc421785f28784eac422960c6a186b, type: 2}
   weapon: {fileID: 5309456792346735668}
 --- !u!1 &221396329456224357

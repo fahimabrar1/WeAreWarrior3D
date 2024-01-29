@@ -5,11 +5,8 @@ using DG.Tweening;
 public class HomeScreenUI : MonoBehaviour
 {
     public GameObject battleButton;
+    public GameObject bottomNavbar;
     private Vector3 originalbattleButtonScale;
-
-    public float scaleUpFactor = 1.1f; // Scale factor when button is clicked
-    public float scaleDownFactor = 0f; // Scale factor when button disappears
-    public float scalingDuration = 0.3f; // Duration of scaling animations
 
 
     void Start()
@@ -33,20 +30,21 @@ public class HomeScreenUI : MonoBehaviour
         Sequence sequence = DOTween.Sequence();
 
         // Scale up
-        sequence.Append(battleButton.transform.DOScale(originalbattleButtonScale * scaleUpFactor, scalingDuration).SetEase(Ease.InOutQuad));
+        sequence.Append(battleButton.transform.DOScale(originalbattleButtonScale * GlobalConstants.buttonScaleUpFactor, GlobalConstants.buttonscalingDuration).SetEase(Ease.InOutQuad));
 
         // Wait for scalingDuration seconds
-        sequence.AppendInterval(scalingDuration);
+        sequence.AppendInterval(GlobalConstants.buttonscalingDuration);
 
         // Scale down
-        sequence.Append(battleButton.transform.DOScale(originalbattleButtonScale * scaleDownFactor, scalingDuration).SetEase(Ease.InOutQuad));
+        sequence.Append(battleButton.transform.DOScale(originalbattleButtonScale * GlobalConstants.buttonscaleDownFactor, GlobalConstants.buttonscalingDuration).SetEase(Ease.InOutQuad));
 
         // Wait for scalingDuration seconds
-        sequence.AppendInterval(scalingDuration);
+        sequence.AppendInterval(GlobalConstants.buttonscalingDuration);
 
         // Set the button inactive
         sequence.AppendCallback(() => battleButton.SetActive(false));
         sequence.AppendCallback(() => BattleManager.OnStartBattle());
+        sequence.AppendCallback(() => bottomNavbar.SetActive(false));
         // Play the sequence
         sequence.Play();
     }
@@ -60,10 +58,11 @@ public class HomeScreenUI : MonoBehaviour
         Sequence sequence = DOTween.Sequence();
 
         // Scale up
-        sequence.Append(battleButton.transform.DOScale(originalbattleButtonScale, scalingDuration).SetEase(Ease.InOutQuad));
+        sequence.Append(battleButton.transform.DOScale(originalbattleButtonScale, GlobalConstants.buttonscalingDuration).SetEase(Ease.InOutQuad));
 
         // Wait for scalingDuration seconds
-        sequence.AppendInterval(scalingDuration);
+        sequence.AppendInterval(GlobalConstants.buttonscalingDuration);
+        sequence.AppendCallback(() => bottomNavbar.SetActive(true));
 
         // Play the sequence
         sequence.Play();

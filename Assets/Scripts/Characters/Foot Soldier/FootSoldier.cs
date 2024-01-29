@@ -21,8 +21,9 @@ public class FootSoldier : Soldier
     /// Start is called on the frame when a script is enabled just before
     /// any of the Update methods is called the first time.
     /// </summary>
-    void Start()
+    public override void StartBattle()
     {
+        base.StartBattle();
         SetupSoldierData();
         FindClosestTarget();
     }
@@ -51,13 +52,11 @@ public class FootSoldier : Soldier
         sphereCollider.radius = data.CombatData.CombatRadius;
 
         // setup navmesh data for soldier
-        Debug.Log($"Setting speed: {soldierReusableData.Speed}");
         navMeshAgent.speed = soldierReusableData.Speed;
         navMeshAgent.acceleration = data.NavigationData.Acceleration;
         navMeshAgent.radius = data.NavigationData.Radius;
         navMeshAgent.stoppingDistance = data.NavigationData.StoppingDistance;
         navMeshAgent.isStopped = true;
-        Debug.Log($"All Set: {navMeshAgent.speed}");
 
     }
 

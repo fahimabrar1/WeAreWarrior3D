@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance { get; private set; }
 
     public BattleManager battleManager;
+    public PoolManager poolManager;
 
     [AssetSelector(Paths = "Assets/Resources/Levels")]
     public LevelSO LevelData;
@@ -31,6 +32,7 @@ public class GameManager : MonoBehaviour
         DOTween.Init(true, true, LogBehaviour.Verbose);
 
         battleManager = FindAnyObjectByType<BattleManager>();
+        poolManager = FindAnyObjectByType<PoolManager>();
     }
 
     private void Start()

@@ -1,10 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 
 public class SoldierBase : MonoBehaviour, IDamagable
@@ -177,11 +175,12 @@ public class SoldierBase : MonoBehaviour, IDamagable
         {
             Vector3 point = RandomPointGenerator.RandomPointInBounds(spawnArea.bounds);
 
-            // Todo: Move data to scriptable object
-            var soldier = Instantiate(soldierData.soldierData.Prefab, point, Quaternion.identity)
-                .GetComponent<Soldier>();
+            var soldier = GameManager.instance.poolManager.poolList.Find((pool) => pool.soldierType == soldierType).DequeueObjectFromPool().GetComponent<Soldier>();
 
+            soldier.transform.position = point;
             soldier.soldierBase = this;
+            soldier.SetActionEvents();
+            soldier.StartBattle();
             BattleManager.OnNotifyBaseAction(gameTeam, soldier);
             BattleManager.OnNotifySoldierAction();
         }
@@ -202,7 +201,7 @@ public class SoldierBase : MonoBehaviour, IDamagable
         {
             enemies.Remove(soldier);
         }
-        Destroy(soldier.gameObject);
+        soldier.pool.EnqueueObjectToPool(soldier.gameObject);
     }
 
     #endregion
