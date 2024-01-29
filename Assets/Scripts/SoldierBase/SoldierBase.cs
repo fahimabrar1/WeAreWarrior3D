@@ -130,9 +130,14 @@ public class SoldierBase : MonoBehaviour, IDamagable
         }
         else
         {
-            //Todo: Destroy Base, emmit particles, end battle, fetch coins
+            //Todo:  emmit particles, end battle, fetch coins
             BattleManager.OnEndBatleAction();
-            Destroy(gameObject);
+            // Todo: destroy all soldiers 
+            var soldiers = FindObjectsOfType<Soldier>();
+            foreach (var soldier in soldiers)
+            {
+                soldier.pool.EnqueueObjectToPool(soldier.gameObject);
+            }
         }
     }
 

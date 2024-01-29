@@ -16,8 +16,12 @@ public class FootSoldierSO : SoldierSO
     [Tooltip("The combat data of the foot soldier")]
     public CombatData CombatData;
 
-    [Tooltip("The combat data of the foot soldier")]
+    [Tooltip("The Sound data of the foot soldier")]
     public FootSoldierSoundData SoundData;
+
+    [Tooltip("The VFX data of the foot soldier")]
+
+    public VFXData VFXData;
 
 
     public FootSoldierSO()

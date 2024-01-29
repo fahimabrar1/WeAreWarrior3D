@@ -127,7 +127,7 @@ public class FootSoldier : Soldier
     public override void OnDamage(int damage)
     {
         base.OnDamage(damage);
-        // Todo:  particles effects
+
         if (soldierReusableData.Health > damage)
         {
             soldierReusableData.Health -= damage;
@@ -135,10 +135,16 @@ public class FootSoldier : Soldier
         }
         else
         {
+            // Instantiate the VFX
+            GameObject vfxInstance = Instantiate(data.VFXData.OnDeath, transform.position, Quaternion.identity);
+
+            // Destroy the VFX after a delay (e.g., 2 seconds)
+            Destroy(vfxInstance, 2f);
+
             soldierReusableData.closestSoldier = null;
             SoldierBase.OnSoldierDeathAction(this);
         }
-        //Todo: Pool it
+
     }
 
 

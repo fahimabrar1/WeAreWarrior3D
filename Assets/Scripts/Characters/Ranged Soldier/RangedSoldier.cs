@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class RangedSoldier : Soldier
@@ -140,7 +141,6 @@ public class RangedSoldier : Soldier
     {
 
         base.OnDamage(damage);
-        // Todo: deals damage, play sound and  particles effects
 
         if (soldierReusableData.Health > damage)
         {
@@ -149,6 +149,11 @@ public class RangedSoldier : Soldier
         }
         else
         {
+            // Instantiate the VFX
+            GameObject vfxInstance = Instantiate(data.VFXData.OnDeath, transform.position, Quaternion.identity);
+
+            // Destroy the VFX after a delay (e.g., 2 seconds)
+            Destroy(vfxInstance, 2f);
             soldierReusableData.closestSoldier = null;
             SoldierBase.OnSoldierDeathAction(this);
         }
