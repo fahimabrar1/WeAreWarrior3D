@@ -1,7 +1,5 @@
 using System;
 using Sirenix.OdinInspector;
-using Sirenix.Reflection.Editor;
-using Unity.Mathematics;
 using UnityEngine;
 
 [Serializable]
