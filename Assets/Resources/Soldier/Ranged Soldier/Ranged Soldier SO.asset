@@ -16,6 +16,8 @@ MonoBehaviour:
   Health: 8
   SoldierName: Robin
   SoldierType: 1
+  SoldierSprtie: {fileID: 21300000, guid: 0218889454a914bd5baee21b49606ae7, type: 3}
+  SpawnCost: 10
   Projectile: {fileID: 6771194888584951579, guid: 2bbd50d21a633934190ff41e61d6ab8b,
     type: 3}
   NavigationData:

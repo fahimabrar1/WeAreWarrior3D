@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c2cb1a69f08c58429c42a5599fe39e7, type: 3}
   m_Name: Wave 5F 3R
   m_EditorClassIdentifier: 
-  DelayBeforeWave: 5
-  SpawningDelay: 0.35
+  DelayBeforeWave: 10
+  SpawningDelay: 2
   SoldierTypes: 0000000000000000000000000000000000000000010000000100000001000000

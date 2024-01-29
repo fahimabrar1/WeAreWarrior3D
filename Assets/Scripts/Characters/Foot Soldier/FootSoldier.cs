@@ -184,7 +184,7 @@ public class FootSoldier : Soldier
 
     public override void OnHitBase(SoldierBase hittedBase)
     {
-        if (soldierReusableData.isAttacking)
+        if (soldierReusableData.isAttacking && hittedBase != soldierBase)
             hittedBase.OnDamage(data.CombatData.Damage);
     }
 

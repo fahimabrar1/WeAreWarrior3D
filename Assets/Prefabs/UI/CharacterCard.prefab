@@ -164,11 +164,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9679bed462c84284c82bcaa50dea1287, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canBuy: 0
-  cost: 5
   costText: {fileID: 5585198592782827680}
   button: {fileID: 8453817074790235548}
   currencyManager: {fileID: 0}
+  character: {fileID: 3363209815374884105}
+  canBuy: 0
+  cost: 5
+  soldierType: 0
 --- !u!1 &2372120955865397878
 GameObject:
   m_ObjectHideFlags: 0

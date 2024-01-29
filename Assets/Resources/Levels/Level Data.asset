@@ -15,9 +15,11 @@ MonoBehaviour:
   levelName: 
   levelSoldiersData:
   - unlockPrice: 100
+    isUnlocked: 1
     soldierType: 0
     soldierData: {fileID: 11400000, guid: a6077f0741d919240acf52ae51b9d955, type: 2}
-  - unlockPrice: 0
+  - unlockPrice: 700
+    isUnlocked: 0
     soldierType: 1
     soldierData: {fileID: 11400000, guid: 65bc421785f28784eac422960c6a186b, type: 2}
   waveListData: {fileID: 11400000, guid: 96379b665ff9a2e40bd87af683ff5bf0, type: 2}

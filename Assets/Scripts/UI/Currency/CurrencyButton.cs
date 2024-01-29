@@ -2,20 +2,33 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Sirenix.OdinInspector;
 public class CurrencyButton : MonoBehaviour
 {
 
-    public bool canBuy;
-    public int cost;
-    public TextMeshProUGUI costText;
-    public Button button;
-    public CurrencyManager currencyManager;
 
+    [BoxGroup("Components")]
+    public TextMeshProUGUI costText;
+    [BoxGroup("Components")]
+    public Button button;
+    [BoxGroup("Components")]
+    public CurrencyManager currencyManager;
+    [BoxGroup("Components")]
+    public Image character;
+
+    [BoxGroup("Data")]
+    public bool canBuy;
+
+    [BoxGroup("Data")]
+    public int cost;
+
+    [BoxGroup("Data")]
+    public SoldierType soldierType;
 
     /// <summary>
     /// This function is called when the object becomes enabled and active.
     /// </summary>
-    void OnEnable()
+    public void SetOnUpdateButtonsAction()
     {
         currencyManager.OnUpdateButtonsAction += OnUpdateButtons;
     }
@@ -46,7 +59,6 @@ public class CurrencyButton : MonoBehaviour
     {
         if (currencyValue >= cost)
         {
-
             button.interactable = true;
             //Todo: make is purchasable
         }

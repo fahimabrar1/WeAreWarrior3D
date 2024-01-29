@@ -20,7 +20,14 @@ public class LevelSO : ScriptableObject
 [Serializable]
 public class LevelSoldierData
 {
+
+    // This price will be used on the upgrade panel
     public int unlockPrice;
+
+    // This price will be used on the upgrade panel and battle scene
+    public bool isUnlocked;
+
+
     [ValueDropdown("SoldierTypes")]
     public SoldierType soldierType;
     [ValidateInput("HasSameSoldierType", "Data Must have same Soldier Type")]

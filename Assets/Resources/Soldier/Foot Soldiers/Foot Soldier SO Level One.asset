@@ -13,8 +13,11 @@ MonoBehaviour:
   m_Name: Foot Soldier SO Level One
   m_EditorClassIdentifier: 
   Prefab: {fileID: 1455918053934231001, guid: 0e916c4eb05020945a1970cc2e595d83, type: 3}
-  SoldierName: Erik
   Health: 20
+  SoldierName: Erik
+  SoldierType: 0
+  SoldierSprtie: {fileID: 21300000, guid: ee88c8b5e83c24ca4bb0869aedc078c8, type: 3}
+  SpawnCost: 5
   NavigationData:
     <Speed>k__BackingField: 2
     <Acceleration>k__BackingField: 15

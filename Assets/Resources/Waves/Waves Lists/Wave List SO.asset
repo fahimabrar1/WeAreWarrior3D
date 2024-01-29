@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Wave List SO
   m_EditorClassIdentifier: 
   waveList:
+  - {fileID: 11400000, guid: 8083a888db0d2d3479913c601f604bff, type: 2}
   - {fileID: 11400000, guid: aeb5168b85c8b8547a7a4655005106b1, type: 2}
   - {fileID: 11400000, guid: 86d9c91f280b8314f9adf18f45eb37ca, type: 2}
   - {fileID: 11400000, guid: c7143a8a085206b4f8aee6957f2dcee1, type: 2}
