@@ -60,6 +60,7 @@ public class SoldierBase : MonoBehaviour, IDamagable
     void OnEnable()
     {
         BattleManager.OnNotifyBaseAction += OnNotifyBase;
+        BattleManager.OnStartBattle += OnStartBattle;
         OnSoldierDeathAction += OnSoldierDeath;
     }
 
@@ -69,6 +70,7 @@ public class SoldierBase : MonoBehaviour, IDamagable
     void OnDisable()
     {
         BattleManager.OnNotifyBaseAction -= OnNotifyBase;
+        BattleManager.OnStartBattle -= OnStartBattle;
         OnSoldierDeathAction -= OnSoldierDeath;
     }
 
@@ -87,9 +89,8 @@ public class SoldierBase : MonoBehaviour, IDamagable
     /// Start is called on the frame when a script is enabled just before
     /// any of the Update methods is called the first time.
     /// </summary>
-    void Start()
+    void OnStartBattle()
     {
-
         reusableData = new()
         {
             //Todo: Fetch from SO
@@ -101,8 +102,6 @@ public class SoldierBase : MonoBehaviour, IDamagable
             //Todo:Initate waves
             StartCoroutine(MakeWaves());
         }
-
-
     }
     #endregion
 

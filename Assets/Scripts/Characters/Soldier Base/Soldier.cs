@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using System.Linq;
 using System;
+using System.Collections;
 
 [RequireComponent(typeof(NavMeshAgent)), RequireComponent(typeof(Rigidbody)), RequireComponent(typeof(NavMeshObstacle))]
 public class Soldier : MonoBehaviour, IDamagable, IAttackable
@@ -39,6 +40,11 @@ public class Soldier : MonoBehaviour, IDamagable, IAttackable
     [Tooltip("Health component of the soldier")]
     public HealthBar healthBar;
 
+    [BoxGroup("Data")]
+    [Tooltip("The Model of this game object")]
+    [ChildGameObjectsOnly]
+    public GameObject childModel;
+
 
     [BoxGroup("Data")]
     public SoldierReusableData soldierReusableData;
@@ -58,6 +64,17 @@ public class Soldier : MonoBehaviour, IDamagable, IAttackable
         Rigidbody = GetComponentInChildren<Rigidbody>();
     }
 
+
+
+    /// <summary>
+    /// Start is called on the frame when a script is enabled just before
+    /// any of the Update methods is called the first time.
+    /// </summary>
+    void Start()
+    {
+        childModel.SetActive(true);
+
+    }
 
     /// <summary>
     /// This function is called when the object becomes enabled and active.
@@ -176,7 +193,16 @@ public class Soldier : MonoBehaviour, IDamagable, IAttackable
 
     public virtual void OnEndBatle()
     {
+        StartCoroutine(DestroySoldier());
+    }
 
+    private IEnumerator DestroySoldier()
+    {
+        yield return new WaitForSeconds(1);
+        childModel.SetActive(false);
+
+        yield return new WaitForSeconds(3);
+        //Todo: Enque
     }
 
 
