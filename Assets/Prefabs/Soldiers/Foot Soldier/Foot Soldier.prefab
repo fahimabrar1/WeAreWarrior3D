@@ -140,8 +140,8 @@ GameObject:
   - component: {fileID: 5216536724322687037}
   - component: {fileID: 3411946882298228094}
   - component: {fileID: 361223288956837513}
-  - component: {fileID: 103335383200624986}
   - component: {fileID: 6321496276728650416}
+  - component: {fileID: 103335383200624986}
   m_Layer: 0
   m_Name: Foot Soldier
   m_TagString: Soldier
@@ -255,39 +255,6 @@ CapsuleCollider:
   m_Height: 3
   m_Direction: 1
   m_Center: {x: 0, y: 1.5, z: 0}
---- !u!114 &103335383200624986
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1455918053934231001}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 362bbec35e862184f91a9c8459f19174, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  navMeshAgent: {fileID: 0}
-  navMeshObstacle: {fileID: 0}
-  Rigidbody: {fileID: 0}
-  animator: {fileID: 0}
-  sphereCollider: {fileID: 2294491504251157139}
-  soldierBase: {fileID: 0}
-  healthBar: {fileID: 8858419643952195344}
-  childModel: {fileID: 6451349369077572042}
-  soldierReusableData:
-    Health: 0
-    Speed: 0
-    destination: {fileID: 0}
-    closestSoldier: {fileID: 0}
-    isAttacking: 0
-    soldierBaseTarget: {fileID: 0}
-    ProjectileSpeed: 0
-  pool:
-    prefab: {fileID: 0}
-    parentTransform: {fileID: 0}
-    soldierType: 0
-  data: {fileID: 11400000, guid: a6077f0741d919240acf52ae51b9d955, type: 2}
 --- !u!82 &6321496276728650416
 AudioSource:
   m_ObjectHideFlags: 0
@@ -299,7 +266,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -384,6 +351,39 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &103335383200624986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1455918053934231001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 362bbec35e862184f91a9c8459f19174, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  navMeshAgent: {fileID: 0}
+  navMeshObstacle: {fileID: 0}
+  Rigidbody: {fileID: 0}
+  animator: {fileID: 0}
+  sphereCollider: {fileID: 2294491504251157139}
+  soldierBase: {fileID: 0}
+  healthBar: {fileID: 8858419643952195344}
+  childModel: {fileID: 6451349369077572042}
+  soldierReusableData:
+    Health: 0
+    Speed: 0
+    destination: {fileID: 0}
+    closestSoldier: {fileID: 0}
+    isAttacking: 0
+    soldierBaseTarget: {fileID: 0}
+    ProjectileSpeed: 0
+  pool:
+    prefab: {fileID: 0}
+    parentTransform: {fileID: 0}
+    soldierType: 0
+  data: {fileID: 11400000, guid: a6077f0741d919240acf52ae51b9d955, type: 2}
 --- !u!1 &1549057173042980352
 GameObject:
   m_ObjectHideFlags: 0

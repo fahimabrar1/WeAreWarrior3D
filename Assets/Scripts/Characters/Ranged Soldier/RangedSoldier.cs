@@ -139,11 +139,9 @@ public class RangedSoldier : Soldier
     public override void OnDamage(int damage)
     {
 
-
-
         base.OnDamage(damage);
         // Todo: deals damage, play sound and  particles effects
-        Debug.Log("Taken damage");
+
         if (soldierReusableData.Health > damage)
         {
             soldierReusableData.Health -= damage;
@@ -213,15 +211,23 @@ public class RangedSoldier : Soldier
     {
         base.OnHitSoldier(soldier);
         if (soldier == soldierReusableData.closestSoldier && soldierReusableData.isAttacking)
+        {
+            audioPlayer.PlayAudio(data.SoundData.OnHit);
             soldierReusableData.closestSoldier.OnDamage(data.CombatData.Damage);
+        }
+
     }
 
 
 
     public override void OnHitBase(SoldierBase hittedBase)
     {
-        if (soldierReusableData.isAttacking)
+        if (soldierReusableData.isAttacking && hittedBase != soldierBase)
+        {
+            audioPlayer.PlayAudio(data.SoundData.OnHit);
             hittedBase.OnDamage(data.CombatData.Damage);
+        }
+
     }
 
 

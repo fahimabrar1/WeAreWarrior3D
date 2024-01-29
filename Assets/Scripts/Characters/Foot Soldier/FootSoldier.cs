@@ -105,7 +105,6 @@ public class FootSoldier : Soldier
     {
         base.OnAttack();
         ToggleNavAgent(false);
-        Debug.Log("Attack");
         StartCoroutine(RepeatAttack());
     }
 
@@ -127,12 +126,8 @@ public class FootSoldier : Soldier
 
     public override void OnDamage(int damage)
     {
-
-
-
         base.OnDamage(damage);
-        // Todo: deals damage, play sound and  particles effects
-        Debug.Log("Taken damage");
+        // Todo:  particles effects
         if (soldierReusableData.Health > damage)
         {
             soldierReusableData.Health -= damage;
@@ -175,8 +170,13 @@ public class FootSoldier : Soldier
     public override void OnHitSoldier(Soldier soldier)
     {
         base.OnHitSoldier(soldier);
+
         if (soldier == soldierReusableData.closestSoldier && soldierReusableData.isAttacking)
+        {
+            audioPlayer.PlayAudio(data.SoundData.OnHit);
             soldierReusableData.closestSoldier.OnDamage(data.CombatData.Damage);
+        }
+
     }
 
 
@@ -184,7 +184,11 @@ public class FootSoldier : Soldier
     public override void OnHitBase(SoldierBase hittedBase)
     {
         if (soldierReusableData.isAttacking && hittedBase != soldierBase)
+        {
+            audioPlayer.PlayAudio(data.SoundData.OnHit);
             hittedBase.OnDamage(data.CombatData.Damage);
+        }
+
     }
 
 

@@ -155,7 +155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   totalCurrencyCount: 0
-  currencyGenerationTime: 5
+  currencyGenerationTime: 3
   timeRemaining: 0
   progressBar: {fileID: 7273252890598682773}
   currencyCounter: {fileID: 4595714735396640071}

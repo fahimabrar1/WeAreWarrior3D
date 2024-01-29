@@ -30,3 +30,12 @@ MonoBehaviour:
     <Damage>k__BackingField: 4
     <CombatRadius>k__BackingField: 2.5
     <AttackDelay>k__BackingField: 2
+  SoundData:
+    OnDestroy:
+      clip: {fileID: 8300000, guid: 359cbe0ac9b2a864abe1b20293992ee3, type: 3}
+      volume: 1
+      pitch: 1
+    OnHit:
+      clip: {fileID: 8300000, guid: 321feb9f51af885488e5ed433aecd467, type: 3}
+      volume: 1
+      pitch: 1

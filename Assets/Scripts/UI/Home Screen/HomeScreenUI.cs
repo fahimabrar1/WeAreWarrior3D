@@ -6,6 +6,7 @@ public class HomeScreenUI : MonoBehaviour
 {
     public GameObject battleButton;
     public GameObject bottomNavbar;
+    public GameObject CurrencyManager;
     private Vector3 originalbattleButtonScale;
 
 
@@ -45,6 +46,7 @@ public class HomeScreenUI : MonoBehaviour
         sequence.AppendCallback(() => battleButton.SetActive(false));
         sequence.AppendCallback(() => BattleManager.OnStartBattle());
         sequence.AppendCallback(() => bottomNavbar.SetActive(false));
+        sequence.AppendCallback(() => CurrencyManager.SetActive(true));
         // Play the sequence
         sequence.Play();
     }
@@ -63,6 +65,7 @@ public class HomeScreenUI : MonoBehaviour
         // Wait for scalingDuration seconds
         sequence.AppendInterval(GlobalConstants.buttonscalingDuration);
         sequence.AppendCallback(() => bottomNavbar.SetActive(true));
+        sequence.AppendCallback(() => CurrencyManager.SetActive(false));
 
         // Play the sequence
         sequence.Play();

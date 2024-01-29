@@ -49,6 +49,10 @@ public class Soldier : MonoBehaviour, IDamagable, IAttackable
     [BoxGroup("Data")]
     public SoldierReusableData soldierReusableData;
 
+
+    [BoxGroup("Data")]
+    public AudioPlayer audioPlayer;
+
     [BoxGroup("Data")]
     public SoldierObjectPoolGameObject pool;
 
@@ -65,6 +69,7 @@ public class Soldier : MonoBehaviour, IDamagable, IAttackable
         animator = GetComponentInChildren<Animator>();
         healthBar = GetComponentInChildren<HealthBar>();
         Rigidbody = GetComponentInChildren<Rigidbody>();
+        audioPlayer = new(GetComponent<AudioSource>());
     }
 
 

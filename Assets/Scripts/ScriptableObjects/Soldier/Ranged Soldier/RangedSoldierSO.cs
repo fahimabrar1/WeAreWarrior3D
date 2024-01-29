@@ -21,7 +21,8 @@ public class RangedSoldierSO : SoldierSO
     [BoxGroup("Combat Data")]
     [Tooltip("The combat data of the ranged soldier")]
     public RangedSoldierCombatData CombatData;
-
+    [Tooltip("The combat data of the ranged soldier")]
+    public RangedSoldierSoundData SoundData;
 
     public RangedSoldierSO()
     {
